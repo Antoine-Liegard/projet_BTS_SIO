@@ -5,19 +5,21 @@ package appliLourde.persistance;
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
 
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CBDD {
+    
 
     protected CParametresBDD parametresStockageBDD = null;
-    Connection conn = null;
-    Statement stmt = null;
+    protected Connection conn = null;
+    protected Statement stmt = null;
 
     public CBDD(CParametresBDD parametresStockageBDD) {
         this.parametresStockageBDD = parametresStockageBDD;
@@ -35,7 +37,7 @@ public class CBDD {
                     + parametresStockageBDD.getIp() + "/"
                     + parametresStockageBDD.getNomBase()
                     +
-//                    //test
+//                    pour désactiver SSL et les messages d'erreurs
                     "?useSSL=false"
                     ,
                     parametresStockageBDD.getUtilisateur(),
@@ -68,7 +70,7 @@ public class CBDD {
         }
 
     }
-
+    
     ResultSet executerRequeteQuery(String requete) {
         try {
             stmt = conn.createStatement();
@@ -78,7 +80,8 @@ public class CBDD {
             return null;
         }
     }
-
+    
+//  Test
 //    public static void main(String[] args) {
 //        ArrayList<CEtudiant> listeEtudiants = new ArrayList();
 //        

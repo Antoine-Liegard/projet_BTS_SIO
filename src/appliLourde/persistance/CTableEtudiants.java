@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.PreparedStatement;
+import java.sql.Types;
 
 public class CTableEtudiants {
 
@@ -141,20 +143,49 @@ public class CTableEtudiants {
         return etudiant;
     }
 
-    
     int insererEtudiant(CEtudiant etudiant) {
         int res = -1;
         if (bdd.connecter() == true) {
             String dateNaissance = formaterDate(etudiant.getDateNaissance());
             String req = "INSERT INTO `tableetudiants` (`idSessionFormation`, "
                     + "`nom`, `prenom`, `dateNaissance`,`numeroSS`, `commune`, `codePostal`, `numeroVoie`, "
-                    + "`typeVoie`, `nomVoie`, `mail`, `telephone1`, `telephone2`) VALUES (" 
-                    +"'"+ etudiant.getIdSessionFormation() + "', '" + etudiant.getNom() + "', '" + etudiant.getPrenom() + "', '"
-                    + dateNaissance + "', '" + etudiant.getNumeroSS()+ "', '" + etudiant.getCommune() + "', '" 
-                    + etudiant.getCodePostal() + "', '"+ etudiant.getNumeroVoie() + "', '" + etudiant.getTypeVoie() + "', '"
-                    + etudiant.getNomVoie() + "', '" + etudiant.getMail() + "' , '"
-                    + etudiant.getTelephone1() + "', '" + etudiant.getTelephone2() + "');";
-            res = bdd.executerRequeteUpdate(req);
+                    + "`typeVoie`, `nomVoie`, `mail`, `telephone1`, `telephone2`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
+            try {
+                
+                PreparedStatement pstmt = bdd.conn.prepareStatement(req);
+                if (etudiant.getIdSessionFormation() <= 0) {
+                    pstmt.setNull(1, java.sql.Types.INTEGER);
+                } else {
+                    pstmt.setInt(1, etudiant.getIdSessionFormation());
+                }
+                pstmt.setString(2, etudiant.getNom());
+                pstmt.setString(3, etudiant.getPrenom());
+                pstmt.setString(4, dateNaissance);
+                pstmt.setString(5, etudiant.getNumeroSS());
+                pstmt.setString(6, etudiant.getCommune());
+                pstmt.setString(7, etudiant.getCodePostal());
+                
+                if ("".equals(etudiant.getNumeroVoie())) {
+                    pstmt.setNull(8, java.sql.Types.VARCHAR);
+                } else {
+                    pstmt.setString(8, etudiant.getNumeroVoie());
+                }
+                pstmt.setString(9, etudiant.getTypeVoie());
+                pstmt.setString(10, etudiant.getNomVoie());
+                pstmt.setString(11, etudiant.getMail());
+                pstmt.setString(12, etudiant.getTelephone1());
+
+                if ("".equals(etudiant.getTelephone2())) {
+                    pstmt.setNull(13, java.sql.Types.VARCHAR);
+                } else {
+                    pstmt.setString(13, etudiant.getTelephone2());
+                }
+                pstmt.execute();
+            } catch (SQLException ex) {
+                Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");
@@ -171,15 +202,15 @@ public class CTableEtudiants {
                     + "SET `nom` = '" + etudiant.getNom()
                     + "SET `dateNaissance` = '" + etudiant.getDateNaissance()
                     + "SET `numeroSS` = '" + etudiant.getNumeroSS()
-                    + "SET `commune` = '" + etudiant.getCommune() 
-                    + "SET `codePostal` = '" + etudiant.getCodePostal() 
-                    + "SET `numeroVoie` = '" + etudiant.getNumeroVoie() 
-                    + "SET `typeVoie` = '" + etudiant.getTypeVoie() 
-                    + "SET `nomVoie` = '" + etudiant.getNomVoie() 
-                    + "SET `mail` = '" + etudiant.getMail() 
-                    + "SET `telephone1` = '" + etudiant.getTelephone1() 
-                    + "SET `telephone2` = '" + etudiant.getTelephone2()        
-                    + "' WHERE `tableetudiants`.`id` =" + etudiant.getIdEtudiant()+";";
+                    + "SET `commune` = '" + etudiant.getCommune()
+                    + "SET `codePostal` = '" + etudiant.getCodePostal()
+                    + "SET `numeroVoie` = '" + etudiant.getNumeroVoie()
+                    + "SET `typeVoie` = '" + etudiant.getTypeVoie()
+                    + "SET `nomVoie` = '" + etudiant.getNomVoie()
+                    + "SET `mail` = '" + etudiant.getMail()
+                    + "SET `telephone1` = '" + etudiant.getTelephone1()
+                    + "SET `telephone2` = '" + etudiant.getTelephone2()
+                    + "' WHERE `tableetudiants`.`id` =" + etudiant.getIdEtudiant() + ";";
             res = bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
         } else {
@@ -236,8 +267,8 @@ public class CTableEtudiants {
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 100);
             tableEtudiants.insererEtudiant(new CEtudiant(
-                    -1, 
-                    0,
+                    -1,
+                    -1,
                     "Nom" + rand,
                     "Prénom" + rand,
                     new GregorianCalendar(),

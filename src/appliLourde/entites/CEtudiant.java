@@ -60,7 +60,7 @@ public class CEtudiant {
     // toString retournant une chaine avec l'ID, le nom, le prénom et la date de naissance
     @Override
     public String toString() {
-        return "" + idEtudiant + " " + nom + " " + prenom + " " + gregorianCalendarToString(dateNaissance);
+        return "" + idEtudiant + " " + nom + " " + prenom + " " + gregorianCalendarToString(dateNaissance) + " " +idSessionFormation + " " +telephone2;
     }
 
     // getter et setter, générés automatiquement
