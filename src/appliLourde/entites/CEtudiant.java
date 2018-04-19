@@ -24,7 +24,6 @@ public class CEtudiant {
     protected String telephone2;
 
     //constructeur complet 
-    //TODO vérifier et modifier si paramètres NULLS
     public CEtudiant(int idEtudiant, int idSessionFormation, String nom, String prenom, GregorianCalendar dateNaissance, String numeroSS, String commune, String codePostal, String numeroVoie, String typeVoie, String nomVoie, String mail, String telephone1, String telephone2) {
         this.idEtudiant = idEtudiant;
         if (idSessionFormation > 0) {

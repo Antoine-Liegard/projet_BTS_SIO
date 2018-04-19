@@ -8,7 +8,6 @@ import appliLourde.entites.CEtudiant;
 import appliLourde.entites.CListeEtudiants;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -23,12 +22,7 @@ public class CTableEtudiants {
         this.bdd = bdd;
     }
 
-    // permet de formater une date pour avoir le format requis par SQL
-    public String formaterDate(GregorianCalendar gc) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        fmt.setCalendar(gc);
-        return fmt.format(gc.getTime());
-    }
+   
 
     //nom de méthode explicite
     int supprimerTable() {
@@ -145,7 +139,7 @@ public class CTableEtudiants {
     int insererEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
-            String dateNaissance = formaterDate(etudiant.getDateNaissance());
+            String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
             String req = "INSERT INTO `tableetudiants` (`idSessionFormation`, "
                     + "`nom`, `prenom`, `dateNaissance`,`numeroSS`, `commune`, "
                     + ""
@@ -199,7 +193,7 @@ public class CTableEtudiants {
     int mettreAJourEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
-            String dateNaissance = formaterDate(etudiant.getDateNaissance());
+            String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
             
             String req = "UPDATE tableetudiants "
                     + "SET `IdSessionFormation` = ? , `nom` = ? , `prenom` = ? , `dateNaissance` = ? , `numeroSS` = ? , `commune` = ? , `codePostal` = ? , `numeroVoie` = ? , `typeVoie` = ? , `nomVoie` = ? , `mail` = ? , `telephone1` = ? , `telephone2` = ? WHERE `tableetudiants`.`idEtudiant` =" + etudiant.getIdEtudiant() + ";";
@@ -311,22 +305,22 @@ public class CTableEtudiants {
 //                    "0102030405",
 //                    "0203040506"));
 //        }
-        
+//        
 //        CEtudiant etudiant = new CEtudiant(
 //                    49,
-//                    -1,
+//                    0,
 //                    "Chevalier",
 //                    "Alexis",
 //                    new GregorianCalendar(),
 //                    "196114634948493",
 //                    "Rennes",
 //                    "35000",
-//                    "1",
+//                    "",
 //                    "Rue",
 //                    "Bô jeu",
 //                    "test.test@gmail.com",
 //                    "0102030405",
-//                    "0203040506");
+//                    "");
 //        tableEtudiants.mettreAJourEtudiant(etudiant);
 
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();

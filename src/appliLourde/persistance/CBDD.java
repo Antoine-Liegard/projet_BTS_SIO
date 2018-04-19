@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -79,6 +81,14 @@ public class CBDD {
             Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        
+         
+    }
+    // permet de formater une date pour avoir le format requis par SQL
+    public String formaterDate(GregorianCalendar gc) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        fmt.setCalendar(gc);
+        return fmt.format(gc.getTime());
     }
     
 //  Test
