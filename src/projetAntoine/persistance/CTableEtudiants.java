@@ -1,11 +1,11 @@
-package appliLourde.persistance;
+package projetAntoine.persistance;
 
 /**
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-import appliLourde.entites.CEtudiant;
-import appliLourde.entites.CListeEtudiants;
+import projetAntoine.entites.CEtudiant;
+import projetAntoine.entites.CListeEtudiants;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -24,7 +24,7 @@ public class CTableEtudiants {
 
    
 
-    //nom de méthode explicite
+    //nom de méthode explicite ne fonctionne pas à cause des contraintes
     int supprimerTable() {
         String req = "DROP TABLE tableetudiants";
         int res = -1;
@@ -37,38 +37,7 @@ public class CTableEtudiants {
         return res;
     }
 
-    //nom de méthode explicite
-    // réfléchir si intéressant de garder ou plutôt avoir crerBDD() dans loa classe CBDD
-    int creerTable() {
-        String req
-                = "CREATE TABLE IF NOT EXISTS `tableetudiants` ("
-                + "`idEtudiant` int(11) NOT NULL AUTO_INCREMENT,"
-                + "`idSessionFormation` int(11) DEFAULT NULL,"
-                + "`nom` varchar(20) NOT NULL,"
-                + "`prenom` varchar(20) NOT NULL,"
-                + "`dateNaissance` date NOT NULL,"
-                + "`numeroSS` varchar(15) NOT NULL,"
-                + "`commune` varchar(30) NOT NULL,"
-                + "`codePostal` varchar(10) NOT NULL,"
-                + "`numeroVoie` varchar(10) DEFAULT NULL,"
-                + "`typeVoie` varchar(20) NOT NULL,"
-                + "`nomVoie` varchar(50) NOT NULL,"
-                + "`mail` varchar(45) NOT NULL,"
-                + "`telephone1` varchar(12) NOT NULL,"
-                + "`telephone2` varchar(12) DEFAULT NULL,"
-                + "PRIMARY KEY (`idEtudiant`),"
-                + "KEY `fk_etudiant_sessionFormation` (`idSessionFormation`)"
-                + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;";
-        int res = -1;
-        if (bdd.connecter() == true) {
-            res = bdd.executerRequeteUpdate(req);
-            bdd.deconnecter();
-        } else {
-            System.out.println("Connexion KO");
-        }
-        return res;
-    }
-
+   
     CEtudiant convertir_result_Etudiant(ResultSet result) {
 
         try {
@@ -286,25 +255,25 @@ public class CTableEtudiants {
         CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
         CTableEtudiants tableEtudiants = new CTableEtudiants();
         tableEtudiants.setBdd(bdd);  // Création de l'association simple entre TableEtudiants et CBDD
-
-//        for (int i = 0; i < 5; i++) {
-//            int rand = (int) (Math.random() * 100);
-//            tableEtudiants.insererEtudiant(new CEtudiant(
-//                    -1,
-//                    -1,
-//                    "Nom" + rand,
-//                    "Prénom" + rand,
-//                    new GregorianCalendar(),
-//                    "196114634948493",
-//                    "Rennes",
-//                    "35000",
-//                    "1",
-//                    "Rue",
-//                    "Bô jeu",
-//                    "test.test@gmail.com",
-//                    "0102030405",
-//                    "0203040506"));
-//        }
+//        tableEtudiants.bdd.creerBDD();
+        for (int i = 0; i < 5; i++) {
+            int rand = (int) (Math.random() * 100);
+            tableEtudiants.insererEtudiant(new CEtudiant(
+                    -1,
+                    -1,
+                    "Nom" + rand,
+                    "Prénom" + rand,
+                    new GregorianCalendar(),
+                    "196114634948493",
+                    "Rennes",
+                    "35000",
+                    "1",
+                    "Rue",
+                    "Bô jeu",
+                    "test.test@gmail.com",
+                    "0102030405",
+                    "0203040506"));
+        }
 //        
 //        CEtudiant etudiant = new CEtudiant(
 //                    49,

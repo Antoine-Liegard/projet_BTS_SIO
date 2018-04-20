@@ -1,4 +1,4 @@
-package appliLourde.entites;
+package projetAntoine.entites;
 
 /**
  *
@@ -16,9 +16,9 @@ public class CListeEtudiants {
     }
 
     CEtudiant selectionnerPersonne(int id) {
-        for (CEtudiant listeEtudiants : this.listeEtudiant) {
-            if (listeEtudiants.idEtudiant == id) {
-                return listeEtudiants;
+        for (CEtudiant etudiant : this.listeEtudiant) {
+            if (etudiant.idEtudiant == id) {
+                return etudiant;
             }
         }
         return null;
