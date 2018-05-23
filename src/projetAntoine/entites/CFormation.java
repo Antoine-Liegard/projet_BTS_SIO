@@ -15,7 +15,13 @@ public class CFormation {
         this.libelleDiplome = libelleDiplome;
         this.optionDiplome = optionDiplome;
     }
-
+    
+    public CFormation(String libelleDiplome, String optionDiplome) {
+        this.libelleDiplome = libelleDiplome;
+        this.optionDiplome = optionDiplome;
+    }
+    
+    
     public int getIdFormation() {
         return idFormation;
     }

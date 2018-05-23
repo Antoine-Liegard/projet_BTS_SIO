@@ -22,8 +22,6 @@ public class CTableEtudiants {
         this.bdd = bdd;
     }
 
-   
-
     //nom de méthode explicite ne fonctionne pas à cause des contraintes
     int supprimerTable() {
         String req = "DROP TABLE tableetudiants";
@@ -37,7 +35,6 @@ public class CTableEtudiants {
         return res;
     }
 
-   
     CEtudiant convertir_result_Etudiant(ResultSet result) {
 
         try {
@@ -90,7 +87,7 @@ public class CTableEtudiants {
         CEtudiant etudiant = null;
         if (bdd.connecter() == true) {
             System.out.println("Connexion OK");
-            ResultSet result = bdd.executerRequeteQuery("select * from tableetudiants  WHERE `tableetudiants`.`id` = " + idEtu);
+            ResultSet result = bdd.executerRequeteQuery("select * from tableetudiants  WHERE `tableetudiants`.`idEtudiant` = " + idEtu);
             try {
                 if (result.next()) {
                     etudiant = convertir_result_Etudiant(result);
@@ -105,6 +102,7 @@ public class CTableEtudiants {
         return etudiant;
     }
 
+    // inserer un nouvel étudiant dans la base, retourne 1 si éxecuté
     int insererEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
@@ -117,7 +115,7 @@ public class CTableEtudiants {
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             try {
-                
+
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
                 if (etudiant.getIdSessionFormation() <= 0) {
                     pstmt.setNull(1, java.sql.Types.INTEGER);
@@ -130,7 +128,7 @@ public class CTableEtudiants {
                 pstmt.setString(5, etudiant.getNumeroSS());
                 pstmt.setString(6, etudiant.getCommune());
                 pstmt.setString(7, etudiant.getCodePostal());
-                
+
                 if ("".equals(etudiant.getNumeroVoie())) {
                     pstmt.setNull(8, java.sql.Types.VARCHAR);
                 } else {
@@ -149,7 +147,7 @@ public class CTableEtudiants {
                 pstmt.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
-                res=1;
+                res = 1;
             }
 
             bdd.deconnecter();
@@ -159,15 +157,16 @@ public class CTableEtudiants {
         return res;
     }
 
+    // met a jour un étudiant dans la base avec un prepared statement, retourne 1 si éxecuté
     int mettreAJourEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
             String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
-            
+
             String req = "UPDATE tableetudiants "
                     + "SET `IdSessionFormation` = ? , `nom` = ? , `prenom` = ? , `dateNaissance` = ? , `numeroSS` = ? , `commune` = ? , `codePostal` = ? , `numeroVoie` = ? , `typeVoie` = ? , `nomVoie` = ? , `mail` = ? , `telephone1` = ? , `telephone2` = ? WHERE `tableetudiants`.`idEtudiant` =" + etudiant.getIdEtudiant() + ";";
             try {
-                
+
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
                 if (etudiant.getIdSessionFormation() <= 0) {
                     pstmt.setNull(1, java.sql.Types.INTEGER);
@@ -180,7 +179,7 @@ public class CTableEtudiants {
                 pstmt.setString(5, etudiant.getNumeroSS());
                 pstmt.setString(6, etudiant.getCommune());
                 pstmt.setString(7, etudiant.getCodePostal());
-                
+
                 if ("".equals(etudiant.getNumeroVoie())) {
                     pstmt.setNull(8, java.sql.Types.VARCHAR);
                 } else {
@@ -198,12 +197,12 @@ public class CTableEtudiants {
                 }
                 System.out.println(pstmt);
                 pstmt.execute();
-                res=1;
+                res = 1;
             } catch (SQLException ex) {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
                 res = 0;
             }
-            
+
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");
@@ -211,11 +210,12 @@ public class CTableEtudiants {
         return res;
     }
 
-    // nom de méthode explicite
+    // nom de méthode explicite (ne devrais pas fonctionner à cause des contraintes),
+    //a t-on vraiment besoin de garder cette méthode?
     int supprimerTousLesEtudiants() {
         int res = -1;
         if (bdd.connecter() == true) {
-            String req = "DELETE FROM tableetudiants ";
+            String req = "DELETE * FROM tableetudiants ";
             res = bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
         } else {
@@ -224,7 +224,7 @@ public class CTableEtudiants {
         return res;
     }
 
-    // supprime étudiant par rapport à son ID de classe
+    // supprime étudiant par rapport à son ID dans la classe
     int supprimerEtudiant(CEtudiant etudiant) {
         int res = -1;
         if (bdd.connecter() == true) {
@@ -238,7 +238,7 @@ public class CTableEtudiants {
         return res;
     }
 
-    // TODO réfléchir si intéressant de garder
+    // supprime étudiant par rapport à son ID dans la base de donnée
     int supprimerEtudiant(int id) {
         int res = -1;
         if (bdd.connecter() == true) {
@@ -251,10 +251,14 @@ public class CTableEtudiants {
         return res;
     }
 
+    // methode test
     public static void main(String[] args) {
         CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
         CTableEtudiants tableEtudiants = new CTableEtudiants();
-        tableEtudiants.setBdd(bdd);  // Création de l'association simple entre TableEtudiants et CBDD
+        
+        // Création de l'association simple entre TableEtudiants et CBDD
+        tableEtudiants.setBdd(bdd);  
+
 //        tableEtudiants.bdd.creerBDD();
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 100);
@@ -274,7 +278,7 @@ public class CTableEtudiants {
                     "0102030405",
                     "0203040506"));
         }
-//        
+//        // test mise a jour étudiant
 //        CEtudiant etudiant = new CEtudiant(
 //                    49,
 //                    0,
@@ -295,7 +299,7 @@ public class CTableEtudiants {
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();
         listeEtudiants.toString();
 
-////        test
+////        test suppression de tous les étudiants
 //        tableEtudiants.supprimerTousLesEtudiants();
     }
 }

@@ -18,8 +18,9 @@ public class CListeFormations {
     public void ajouterFormation(CFormation formation) {
         this.listeFormations.add(formation);
     }
-
-    CFormation selectionnerFormation(int id) {
+    
+    // retourne une formation par rapport à son ID de table
+    public CFormation selectionnerFormation(int id) {
         for (CFormation formation : this.listeFormations) {
             if (formation.idFormation == id) {
                 return formation;
@@ -33,7 +34,7 @@ public class CListeFormations {
         String res = "";
         for (CFormation formation : this.listeFormations) {
             System.out.println(formation.toString());
-            res += formation.toString() + "|";
+            res += formation.toString() + "/n";
         }
         return res;
     }
