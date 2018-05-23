@@ -22,9 +22,13 @@ public class CEtudiant {
     protected String mail;
     protected String telephone1;
     protected String telephone2;
+    protected String infoComplementaires;
 
     //constructeur complet 
-    public CEtudiant(int idEtudiant, int idSessionFormation, String nom, String prenom, GregorianCalendar dateNaissance, String numeroSS, String commune, String codePostal, String numeroVoie, String typeVoie, String nomVoie, String mail, String telephone1, String telephone2) {
+    public CEtudiant(int idEtudiant, int idSessionFormation, String nom, 
+            String prenom, GregorianCalendar dateNaissance, String numeroSS, 
+            String commune, String codePostal, String numeroVoie, String typeVoie, 
+            String nomVoie, String mail, String telephone1, String telephone2, String infoComplementaire) {
         this.idEtudiant = idEtudiant;
         if (idSessionFormation > 0) {
             this.idSessionFormation = idSessionFormation;
@@ -44,6 +48,7 @@ public class CEtudiant {
         this.telephone1 = telephone1;
         this.telephone2 = telephone2;
         this.numeroSS = numeroSS;
+        this.infoComplementaires = infoComplementaire;
     }
 
     String gregorianCalendarToString(GregorianCalendar gc) {
@@ -62,6 +67,8 @@ public class CEtudiant {
         return "" + idEtudiant + " " + nom + " " + prenom + " " + gregorianCalendarToString(dateNaissance);
     }
 
+    
+    
     // getter et setter, générés automatiquement
     public int getIdEtudiant() {
         return idEtudiant;
@@ -173,6 +180,15 @@ public class CEtudiant {
 
     public void setNumeroSS(String numeroSS) {
         this.numeroSS = numeroSS;
+    }
+    
+    
+    public String getInfoComplementaire() {
+        return infoComplementaires;
+    }
+
+    public void setInfoComplementaire(String infoComplementaire) {
+        this.infoComplementaires = infoComplementaire;
     }
 
 }

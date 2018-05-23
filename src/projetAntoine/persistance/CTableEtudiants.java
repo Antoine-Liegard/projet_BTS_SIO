@@ -54,8 +54,9 @@ public class CTableEtudiants {
             String mail = result.getString("mail");
             String telephone1 = result.getString("telephone1");
             String telephone2 = result.getString("telephone2");
+            String infoComplementaires = result.getString("infosComplementaires");
 
-            return new CEtudiant(idEtudiant, idSessionFormation, nom, prenom, gc, numeroSS, commune, codePostal, numeroVoie, nomVoie, typeVoie, mail, telephone1, telephone2);
+            return new CEtudiant(idEtudiant, idSessionFormation, nom, prenom, gc, numeroSS, commune, codePostal, numeroVoie, nomVoie, typeVoie, mail, telephone1, telephone2,infoComplementaires);
         } catch (SQLException ex) {
             Logger.getLogger(CTableEtudiants.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -108,11 +109,10 @@ public class CTableEtudiants {
         if (bdd.connecter() == true) {
             String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
             String req = "INSERT INTO `tableetudiants` (`idSessionFormation`, "
-                    + "`nom`, `prenom`, `dateNaissance`,`numeroSS`, `commune`, "
-                    + ""
-                    + "`codePostal`, `numeroVoie`, "
-                    + "`typeVoie`, `nomVoie`, `mail`, `telephone1`, `telephone2`) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    + "`nom`, `prenom`, `dateNaissance`,`numeroSS`, `commune`, "   
+                    + "`codePostal`, `numeroVoie`, `typeVoie`, `nomVoie`, `mail`,"
+                    + " `telephone1`, `telephone2`, `infosComplementaires`) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             try {
 
@@ -144,6 +144,7 @@ public class CTableEtudiants {
                 } else {
                     pstmt.setString(13, etudiant.getTelephone2());
                 }
+                pstmt.setString(14, etudiant.getInfoComplementaire());
                 pstmt.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +165,13 @@ public class CTableEtudiants {
             String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
 
             String req = "UPDATE tableetudiants "
-                    + "SET `IdSessionFormation` = ? , `nom` = ? , `prenom` = ? , `dateNaissance` = ? , `numeroSS` = ? , `commune` = ? , `codePostal` = ? , `numeroVoie` = ? , `typeVoie` = ? , `nomVoie` = ? , `mail` = ? , `telephone1` = ? , `telephone2` = ? WHERE `tableetudiants`.`idEtudiant` =" + etudiant.getIdEtudiant() + ";";
+                    + "SET `IdSessionFormation` = ? , `nom` = ? , `prenom` = ? ,"
+                    + " `dateNaissance` = ? , `numeroSS` = ? ,"
+                    + " `commune` = ? , `codePostal` = ? , `numeroVoie` = ? ,"
+                    + " `typeVoie` = ? , `nomVoie` = ? , `mail` = ? ,"
+                    + " `telephone1` = ? , `telephone2` = ? ,"
+                    + " `infosComplementaires` = ?  WHERE"
+                    + " `tableetudiants`.`idEtudiant` =" + etudiant.getIdEtudiant() + ";";
             try {
 
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
@@ -195,6 +202,8 @@ public class CTableEtudiants {
                 } else {
                     pstmt.setString(13, etudiant.getTelephone2());
                 }
+                pstmt.setString(14, etudiant.getInfoComplementaire());
+                
                 System.out.println(pstmt);
                 pstmt.execute();
                 res = 1;
@@ -260,27 +269,31 @@ public class CTableEtudiants {
         tableEtudiants.setBdd(bdd);  
 
 //        tableEtudiants.bdd.creerBDD();
-        for (int i = 0; i < 5; i++) {
-            int rand = (int) (Math.random() * 100);
-            tableEtudiants.insererEtudiant(new CEtudiant(
-                    -1,
-                    -1,
-                    "Nom" + rand,
-                    "Prénom" + rand,
-                    new GregorianCalendar(),
-                    "196114634948493",
-                    "Rennes",
-                    "35000",
-                    "1",
-                    "Rue",
-                    "Bô jeu",
-                    "test.test@gmail.com",
-                    "0102030405",
-                    "0203040506"));
-        }
+
+// test insertion etudiants
+//        for (int i = 0; i < 5; i++) {
+//            int rand = (int) (Math.random() * 100);
+//            tableEtudiants.insererEtudiant(new CEtudiant(
+//                    -1,
+//                    -1,
+//                    "Nom" + rand,
+//                    "Prénom" + rand,
+//                    new GregorianCalendar(),
+//                    "196114634948493",
+//                    "Rennes",
+//                    "35000",
+//                    "1",
+//                    "Rue",
+//                    "Bô jeu",
+//                    "test.test@gmail.com",
+//                    "0102030405",
+//                    "0203040506",
+//                    ""));
+//        }
+
 //        // test mise a jour étudiant
 //        CEtudiant etudiant = new CEtudiant(
-//                    49,
+//                    13,
 //                    0,
 //                    "Chevalier",
 //                    "Alexis",
@@ -293,7 +306,9 @@ public class CTableEtudiants {
 //                    "Bô jeu",
 //                    "test.test@gmail.com",
 //                    "0102030405",
-//                    "");
+//                    "",
+//                    "Il est rapide"
+//                    );
 //        tableEtudiants.mettreAJourEtudiant(etudiant);
 
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();
