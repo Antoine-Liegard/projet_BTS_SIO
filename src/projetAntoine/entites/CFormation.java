@@ -10,6 +10,7 @@ public class CFormation {
     protected String libelleDiplome;
     protected String optionDiplome;
 
+    // constructeurs, l'un complet et l'autre sans id
     public CFormation(int idFormation, String libelleDiplome, String optionDiplome) {
         this.idFormation = idFormation;
         this.libelleDiplome = libelleDiplome;
@@ -21,7 +22,13 @@ public class CFormation {
         this.optionDiplome = optionDiplome;
     }
     
+    // toString
+        @Override
+    public String toString() {
+        return libelleDiplome + " " + optionDiplome;
+    }
     
+    //Getter and Setters
     public int getIdFormation() {
         return idFormation;
     }
@@ -46,9 +53,6 @@ public class CFormation {
         this.optionDiplome = optionDiplome;
     }
 
-    @Override
-    public String toString() {
-        return "" + idFormation + " " + libelleDiplome + " " + optionDiplome;
-    }
+
 
 }

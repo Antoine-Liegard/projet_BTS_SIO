@@ -26,16 +26,14 @@ public class CTableFormation {
     }
 
     //nom de méthode explicite, ne fonctionne pas à cause des contraintes (foreign key)
-    int supprimerTable() {
+    void supprimerTable() {
         String req = "DROP TABLE tableformation";
-        int res = -1;
         if (bdd.connecter() == true) {
-            res = bdd.executerRequeteUpdate(req);
+            bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");
         }
-        return res;
     }
 
     //retourne une formation par rapport à un résultat de requête

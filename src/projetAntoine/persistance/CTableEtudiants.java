@@ -291,26 +291,7 @@ public class CTableEtudiants {
 //                    ""));
 //        }
 
-//        // test mise a jour étudiant
-//        CEtudiant etudiant = new CEtudiant(
-//                    13,
-//                    0,
-//                    "Chevalier",
-//                    "Alexis",
-//                    new GregorianCalendar(),
-//                    "196114634948493",
-//                    "Rennes",
-//                    "35000",
-//                    "",
-//                    "Rue",
-//                    "Bô jeu",
-//                    "test.test@gmail.com",
-//                    "0102030405",
-//                    "",
-//                    "Il est rapide"
-//                    );
-//        tableEtudiants.mettreAJourEtudiant(etudiant);
-
+// 
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();
         listeEtudiants.toString();
 
