@@ -15,7 +15,7 @@ public class CListeEtudiants {
         this.listeEtudiant.add(etudiant);
     }
 
-    CEtudiant selectionnerPersonne(int id) {
+    CEtudiant selectionnerEtudiant(int id) {
         for (CEtudiant etudiant : this.listeEtudiant) {
             if (etudiant.idEtudiant == id) {
                 return etudiant;

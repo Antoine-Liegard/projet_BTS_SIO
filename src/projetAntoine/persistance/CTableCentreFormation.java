@@ -214,9 +214,7 @@ public class CTableCentreFormation {
 //        listeCentreFormation.toString();
 
 
-//    //test selection d'un centre
-//    CCentreFormation centreForm = test.lireCentreFormation(2);
-//        System.out.println(centreForm.toString());
+//§
     
 
     }
