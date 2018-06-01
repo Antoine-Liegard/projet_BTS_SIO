@@ -19,6 +19,13 @@ import projetAntoine.entites.CCentreFormation;
  */
 public class CTableCentreFormation {
 
+    public CTableCentreFormation(CBDD bdd) {
+        this.bdd = bdd;
+    }
+    
+    public CTableCentreFormation() {
+    }
+
     protected CBDD bdd;
 
     public void setBdd(CBDD bdd) {

@@ -21,6 +21,16 @@ public class CTableFormation {
 
     protected CBDD bdd;
 
+    // constructeur avec bdd
+    public CTableFormation(CBDD bdd) {
+        this.bdd = bdd;
+    }
+    
+    // constructeur vide
+    public CTableFormation() {
+
+    }
+
     public void setBdd(CBDD bdd) {
         this.bdd = bdd;
     }
@@ -37,7 +47,7 @@ public class CTableFormation {
     }
 
     //retourne une formation par rapport à un résultat de requête
-    CFormation convertir_result_Formation(ResultSet result) {
+    CFormation convertirResultFormation(ResultSet result) {
 
         try {
             int idFormation = result.getInt("idFormation");
@@ -59,7 +69,7 @@ public class CTableFormation {
             ResultSet result = bdd.executerRequeteQuery("select * from tableformations");
             try {
                 while (result.next()) {
-                    CFormation formation = convertir_result_Formation(result);
+                    CFormation formation = convertirResultFormation(result);
                     listeFormation.ajouterFormation(formation);
                 }
             } catch (SQLException ex) {
@@ -81,7 +91,7 @@ public class CTableFormation {
             ResultSet result = bdd.executerRequeteQuery("select * from tableformations  WHERE `tableformations`.`idFormation` = " + idForm);
             try {
                 if (result.next()) {
-                    formation = convertir_result_Formation(result);
+                    formation = convertirResultFormation(result);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);

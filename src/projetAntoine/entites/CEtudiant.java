@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 public class CEtudiant {
 
     protected int idEtudiant;
-    protected Integer idSessionFormation;
+    protected CSessionFormation sessionFormation;
     protected String nom;
     protected String prenom;
     protected GregorianCalendar dateNaissance;
@@ -25,17 +25,16 @@ public class CEtudiant {
     protected String infoComplementaires;
 
     //constructeur complet 
-    public CEtudiant(int idEtudiant, int idSessionFormation, String nom, 
+    public CEtudiant(int idEtudiant, CSessionFormation sessionFormation , String nom, 
             String prenom, GregorianCalendar dateNaissance, String numeroSS, 
             String commune, String codePostal, String numeroVoie, String typeVoie, 
             String nomVoie, String mail, String telephone1, String telephone2, String infoComplementaire) {
         this.idEtudiant = idEtudiant;
-        if (idSessionFormation > 0) {
-            this.idSessionFormation = idSessionFormation;
+        if (sessionFormation != null) {
+            this.sessionFormation = sessionFormation;
         } else {
-            this.idSessionFormation = 0;
+            this.sessionFormation = null;
         }
-
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -78,13 +77,6 @@ public class CEtudiant {
         this.idEtudiant = idEtudiant;
     }
 
-    public int getIdSessionFormation() {
-        return idSessionFormation;
-    }
-
-    public void setIdSessionFormation(int idSessionFormation) {
-        this.idSessionFormation = idSessionFormation;
-    }
 
     public String getNom() {
         return nom;
@@ -191,4 +183,21 @@ public class CEtudiant {
         this.infoComplementaires = infoComplementaire;
     }
 
+    public CSessionFormation getSessionFormation() {
+        return sessionFormation;
+    }
+
+    public void setSessionFormation(CSessionFormation sessionFormation) {
+        this.sessionFormation = sessionFormation;
+    }
+
+    public String getInfoComplementaires() {
+        return infoComplementaires;
+    }
+
+    public void setInfoComplementaires(String infoComplementaires) {
+        this.infoComplementaires = infoComplementaires;
+    }
+
+    
 }

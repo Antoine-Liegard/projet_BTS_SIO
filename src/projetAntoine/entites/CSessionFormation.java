@@ -33,16 +33,6 @@ public class CSessionFormation {
         this.finSession = finSession;
     }
 
-    // constructeur sans dates
-    public CSessionFormation(int idSessionFormation, CFormation formation, CCentreFormation centreFormation) {
-        if (idSessionFormation > 0) {
-            this.idSessionFormation = idSessionFormation;
-        } else {
-            this.idSessionFormation = 0;
-        }
-        this.formation = formation;
-        this.centreFormation = centreFormation;
-    }
 
     // methode de formatage de la date
     String gregorianCalendarToString(GregorianCalendar gc) {

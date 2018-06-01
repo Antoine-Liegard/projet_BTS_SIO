@@ -20,7 +20,7 @@ public class CListeSessionFormation {
         this.listeSessionFormation.add(session);
     }
     
-    CSessionFormation selectionnerSession(int id) {
+    public CSessionFormation selectionnerSession(int id) {
         for (CSessionFormation session : this.listeSessionFormation) {
             if (session.idSessionFormation == id) {
                 return session;

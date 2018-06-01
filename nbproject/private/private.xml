@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/persistance/CTableSessionFormation.java</file>
             <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/persistance/CTableEtudiants.java</file>
+            <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/persistance/CBDD.java</file>
             <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/entites/CSessionFormation.java</file>
             <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/persistance/CTableCentreFormation.java</file>
-            <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/entites/CListeEtudiants.java</file>
+            <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/persistance/CTableFormation.java</file>
             <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/entites/CListeCentreFormation.java</file>
             <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/entites/CListeSessionFormation.java</file>
-            <file>file:/C:/Users/stagiaire/Documents/BTS%20SIO/Cours/PPE/Projet/Code/projetAntoine/src/projetAntoine/entites/CEtudiant.java</file>
         </group>
     </open-files>
 </project-private>

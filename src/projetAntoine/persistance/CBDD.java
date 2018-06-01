@@ -102,7 +102,9 @@ public class CBDD {
 
 //  Test
     public static void main(String[] args) {
-//        CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
-//        bdd.creerBDD();
+        CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
+        GregorianCalendar finSession = new GregorianCalendar(2018, 11, 24);
+        System.out.println(bdd.formaterDate(finSession));
+
     }
 }
