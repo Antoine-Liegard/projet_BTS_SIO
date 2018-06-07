@@ -70,7 +70,7 @@ public class CTableCentreFormation {
     }
 
     // recherche et retourne une classe CListeFormations par rapport à toutes les entrées de la base
-    CListeCentreFormation lireCentresFormations() {
+    public CListeCentreFormation lireCentresFormations() {
 
         if (bdd.connecter() == true) {
             CListeCentreFormation listeCentreFormation = new CListeCentreFormation();
@@ -92,7 +92,7 @@ public class CTableCentreFormation {
     }
 
     // recherche et retourne une classe CCentreFormation dans la base de donné par rapport à son ID
-    CCentreFormation lireCentreFormation(int idCentreForm) {
+    public CCentreFormation lireCentreFormation(int idCentreForm) {
         CCentreFormation centreFormation = null;
         if (bdd.connecter() == true) {
             System.out.println("Connexion OK");
@@ -112,7 +112,7 @@ public class CTableCentreFormation {
     }
 
     // insere une formation dans la base de donnée a partir d'un classe, retourne 1 si éxecuté
-    int insererCentreFormation(CCentreFormation centreFormation) {
+    public int insererCentreFormation(CCentreFormation centreFormation) {
         int res = 0;
         if (bdd.connecter() == true) {
             String req = "INSERT INTO `tablecentresformation` (`raisonSociale`, `commune`, "
@@ -149,7 +149,7 @@ public class CTableCentreFormation {
     }
 
     // TODO tester
-    int updateCentreFormation(CCentreFormation centreFormation) {
+    public int updateCentreFormation(CCentreFormation centreFormation) {
         int res = 0;
         if (bdd.connecter() == true) {
 
@@ -193,6 +193,33 @@ public class CTableCentreFormation {
                 res = 0;
             }
 
+            bdd.deconnecter();
+        } else {
+            System.out.println("Connexion KO");
+        }
+        return res;
+    }
+    
+     // supprime centre de formation par rapport à son ID dans la classe, besoin de modifier pour vérif contraintes
+    public int supprimerCentreFormation(CCentreFormation centreFormation) {
+        int res = -1;
+        if (bdd.connecter() == true) {
+            
+            String req = "DELETE FROM tablecentresformation WHERE `tablecentresformation`.`idCentreFormation` = " + centreFormation.getIdCentreFormation();
+            res = bdd.executerRequeteUpdate(req);
+            bdd.deconnecter();
+        } else {
+            System.out.println("Connexion KO");
+        }
+        return res;
+    }
+
+    // supprime centre de formation par rapport à son ID dans la base de donnée, besoin de modifier pour vérif contraintes
+    int supprimerCentreFormation(int id) {
+        int res = -1;
+        if (bdd.connecter() == true) {
+            String req = "DELETE FROM tablecentresformation WHERE `tablecentresformation`.`idCentreFormation` = " + id;
+            res = bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");

@@ -83,7 +83,7 @@ public class CTableSessionFormation {
         }
     }
 
-    CListeSessionFormation lireSessionsFormations() {
+    public CListeSessionFormation lireSessionsFormations() {
 
         if (bdd.connecter() == true) {
             CListeSessionFormation listeSession = new CListeSessionFormation();
@@ -104,7 +104,7 @@ public class CTableSessionFormation {
         return null;
     }
 
-    CSessionFormation lireSessionFormation(int idSession) {
+    public CSessionFormation lireSessionFormation(int idSession) {
         CSessionFormation session = null;
         if (bdd.connecter() == true) {
             System.out.println("Connexion OK");
@@ -157,7 +157,7 @@ public class CTableSessionFormation {
     }
 
     // met a jour une session dans la base avec un prepared statement, retourne 1 si éxecuté
-    int mettreAJourSession(CSessionFormation session) {
+    public int mettreAJourSession(CSessionFormation session) {
         int res = 0;
         if (bdd.connecter() == true) {
 
@@ -192,7 +192,7 @@ public class CTableSessionFormation {
     }
 
     // supprime une session par rapport à son ID dans la classe ( besoin de voir comment faire avec clef étrangère
-    int supprimerSession(CSessionFormation session) {
+    public int supprimerSession(CSessionFormation session) {
         int res = -1;
         if (bdd.connecter() == true) {
 
@@ -206,7 +206,7 @@ public class CTableSessionFormation {
     }
 
     // supprime session par rapport à son ID dans la base de donnée
-    int supprimerSession(int id) {
+    public int supprimerSession(int id) {
         int res = -1;
         if (bdd.connecter() == true) {
             String req = "DELETE FROM tablesessionsformations WHERE `tablesessionsformations`.`id` = " + id;

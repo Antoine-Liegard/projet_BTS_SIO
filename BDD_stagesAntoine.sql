@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 12 avr. 2018 à 12:56
+-- Généré le :  mer. 06 juin 2018 à 14:47
 -- Version du serveur :  5.7.19
--- Version de PHP :  7.1.9
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,17 +31,28 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tablecentresformation`;
 CREATE TABLE IF NOT EXISTS `tablecentresformation` (
   `idCentreFormation` int(11) NOT NULL AUTO_INCREMENT,
-  `commune` varchar(30)  NOT NULL,
+  `raisonSociale` varchar(45) NOT NULL,
+  `commune` varchar(30) NOT NULL,
   `codePostal` varchar(11) NOT NULL,
-  `numeroVoie` varchar(6) NOT NULL,
-  `typeVoie` varchar(20)  NOT NULL,
-  `nomVoie` varchar(30)  NOT NULL,
-  `mail1` varchar(30)  NOT NULL,
-  `telephone2` varchar(11) NOT NULL,
+  `numeroVoie` varchar(6) DEFAULT NULL,
+  `typeVoie` varchar(20) NOT NULL,
+  `nomVoie` varchar(30) NOT NULL,
   `telephone1` varchar(11) NOT NULL,
-  `mail2` varchar(30)  NOT NULL,
+  `telephone2` varchar(11) DEFAULT NULL,
+  `mail1` varchar(30) NOT NULL,
+  `mail2` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idCentreFormation`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `tablecentresformation`
+--
+
+INSERT INTO `tablecentresformation` (`idCentreFormation`, `raisonSociale`, `commune`, `codePostal`, `numeroVoie`, `typeVoie`, `nomVoie`, `telephone1`, `telephone2`, `mail1`, `mail2`) VALUES
+(1, 'JambonLand', 'Quimper', '29000', '42', 'boulevard', 'Des punks a chien', '010230', NULL, 'bbbbb@lol.com', NULL),
+(2, 'Greta Saint Malo', 'commune', 'codePostal', NULL, 'typeVoie', 'nomVoie', 'telphone', 'telephone2', 'mail', 'mail2'),
+(3, 'raisonSociale', 'commune', 'codePostal', '', 'typeVoie', 'nomVoie', 'telphone', 'telephone2', 'mail', 'mail2'),
+(4, 'raisonSociale', 'commune', 'codePostal', '', 'typeVoie', 'nomVoie', 'telphone', 'telephone2', 'mail', 'mail2');
 
 -- --------------------------------------------------------
 
@@ -66,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `tabledomainesactivites` (
 DROP TABLE IF EXISTS `tableentreprises`;
 CREATE TABLE IF NOT EXISTS `tableentreprises` (
   `idEntreprise` int(10) NOT NULL,
-  `nom` varchar(25)  NOT NULL,
+  `nom` varchar(25) NOT NULL,
   `siret` varchar(40) NOT NULL,
   `nombreStagiaires` int(10) NOT NULL,
   `dateDernierStage` date NOT NULL,
@@ -95,7 +106,6 @@ CREATE TABLE IF NOT EXISTS `tableetudiants` (
   `nom` varchar(20) NOT NULL,
   `prenom` varchar(20) NOT NULL,
   `dateNaissance` date NOT NULL,
-  `numeroSS` varchar(15) NOT NULL,
   `commune` varchar(30) NOT NULL,
   `codePostal` varchar(10) NOT NULL,
   `numeroVoie` varchar(10) DEFAULT NULL,
@@ -103,10 +113,38 @@ CREATE TABLE IF NOT EXISTS `tableetudiants` (
   `nomVoie` varchar(50) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `telephone1` varchar(12) NOT NULL,
-  `telephone2` varchar(12) DEFAULT NULL, 
+  `telephone2` varchar(12) DEFAULT NULL,
+  `numeroSS` varchar(15) NOT NULL,
+  `infosComplementaires` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`idEtudiant`),
   KEY `fk_etudiant_sessionFormation` (`idSessionFormation`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `tableetudiants`
+--
+
+INSERT INTO `tableetudiants` (`idEtudiant`, `idSessionFormation`, `nom`, `prenom`, `dateNaissance`, `commune`, `codePostal`, `numeroVoie`, `typeVoie`, `nomVoie`, `mail`, `telephone1`, `telephone2`, `numeroSS`, `infosComplementaires`) VALUES
+(26, 1, 'Nom75', 'Prénom75', '2018-06-01', 'Rennes', '35000', '1', 'Bô jeu', 'Rue', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(27, NULL, 'Nom31', 'Prénom31', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(28, NULL, 'Nom68', 'Prénom68', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(29, NULL, 'Nom47', 'Prénom47', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(30, NULL, 'Nom58', 'Prénom58', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(31, NULL, 'Nom93', 'Prénom93', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(32, NULL, 'Nom87', 'Prénom87', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(33, NULL, 'Nom93', 'Prénom93', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(34, NULL, 'Nom70', 'Prénom70', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(35, NULL, 'Nom24', 'Prénom24', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(36, NULL, 'Nom66', 'Prénom66', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(37, NULL, 'Nom61', 'Prénom61', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(38, NULL, 'Nom69', 'Prénom69', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(39, NULL, 'Nom98', 'Prénom98', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(40, NULL, 'Nom89', 'Prénom89', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(41, 1, 'Nom4', 'Prénom4', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(42, 1, 'Nom53', 'Prénom53', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(43, 1, 'Nom99', 'Prénom99', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(44, 1, 'Nom63', 'Prénom63', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', ''),
+(45, 1, 'Nom75', 'Prénom75', '2018-06-01', 'Rennes', '35000', '1', 'Rue', 'Bô jeu', 'test.test@gmail.com', '0102030405', '0203040506', '196114634948493', '');
 
 -- --------------------------------------------------------
 
@@ -118,9 +156,17 @@ DROP TABLE IF EXISTS `tableformations`;
 CREATE TABLE IF NOT EXISTS `tableformations` (
   `idFormation` int(11) NOT NULL AUTO_INCREMENT,
   `libelleDiplome` varchar(30) NOT NULL,
-  `optionDiplome` varchar(30) NOT NULL,
+  `optionDiplome` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idFormation`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `tableformations`
+--
+
+INSERT INTO `tableformations` (`idFormation`, `libelleDiplome`, `optionDiplome`) VALUES
+(1, ' BTS SIO', 'SLAM'),
+(2, 'BTS SNIR', NULL);
 
 -- --------------------------------------------------------
 
@@ -192,7 +238,14 @@ CREATE TABLE IF NOT EXISTS `tablesessionsformations` (
   PRIMARY KEY (`idSessionFormation`),
   KEY `fk_sessionFormation_Formation` (`idFormation`),
   KEY `fk_sessionFormation_centreFormation` (`idCentreFormation`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `tablesessionsformations`
+--
+
+INSERT INTO `tablesessionsformations` (`idSessionFormation`, `idFormation`, `idCentreFormation`, `debutSession`, `finSession`) VALUES
+(1, 1, 1, '2018-05-28', '2019-01-24');
 
 -- --------------------------------------------------------
 
@@ -227,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `tabletests` (
   `age` int(11) NOT NULL,
   `dateNaissance` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contraintes pour les tables déchargées
@@ -237,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `tabletests` (
 -- Contraintes pour la table `tableetudiants`
 --
 ALTER TABLE `tableetudiants`
-  ADD CONSTRAINT `fk_etudiant_sessionFormation` FOREIGN KEY (`idSessionFormation`) REFERENCES `tablesessionsformations` (`idSessionFormation`);
+  ADD CONSTRAINT `fk_etudiant_sessionFormation` FOREIGN KEY (`idSessionFormation`) REFERENCES `tablesessionsformations` (`idSessionFormation`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Contraintes pour la table `tablesessionsformations`

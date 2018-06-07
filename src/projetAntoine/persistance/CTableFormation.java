@@ -25,7 +25,7 @@ public class CTableFormation {
     public CTableFormation(CBDD bdd) {
         this.bdd = bdd;
     }
-    
+
     // constructeur vide
     public CTableFormation() {
 
@@ -62,7 +62,7 @@ public class CTableFormation {
     }
 
     // recherche et retourne une classe CListeFormations par rapport à toutes les entrées de la base
-    CListeFormations lireFormations() {
+    public CListeFormations lireFormations() {
 
         if (bdd.connecter() == true) {
             CListeFormations listeFormation = new CListeFormations();
@@ -84,7 +84,7 @@ public class CTableFormation {
     }
 
     // recherche et retourne une classe formation dans la base de donné par rapport à son ID
-    CFormation lireFormation(int idForm) {
+    public CFormation lireFormation(int idForm) {
         CFormation formation = null;
         if (bdd.connecter() == true) {
             System.out.println("Connexion OK");
@@ -104,7 +104,7 @@ public class CTableFormation {
     }
 
     // insere une formation dans la base de donnée a partir d'un classe, retourne 1 si éxecuté
-    int insererFormation(CFormation formation) {
+    public int insererFormation(CFormation formation) {
         int res = 0;
         if (bdd.connecter() == true) {
             String req = "INSERT INTO `tableformations` (`libelleDiplome`, `optionDiplome`) VALUES (?,?);";
@@ -131,7 +131,7 @@ public class CTableFormation {
     }
 
     // TODO tester
-    int updateFormation(CFormation formation) {
+    public int updateFormation(CFormation formation) {
         int res = 0;
         if (bdd.connecter() == true) {
 

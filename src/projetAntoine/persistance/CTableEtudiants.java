@@ -17,20 +17,16 @@ import projetAntoine.entites.CListeSessionFormation;
 import projetAntoine.entites.CSessionFormation;
 
 public class CTableEtudiants {
-    
+
+    protected CListeSessionFormation listeSessionFormation;
+    protected CBDD bdd;
+
     public CTableEtudiants(CBDD bdd) {
         this.bdd = bdd;
     }
-    
+
     public CTableEtudiants() {
-        
-    }
-    
-    protected CListeSessionFormation listeSessionFormation;
-    protected CBDD bdd;
-    
-    public void setBdd(CBDD bdd) {
-        this.bdd = bdd;
+
     }
 
     //nom de méthode explicite ne fonctionne pas à cause des contraintes
@@ -45,9 +41,9 @@ public class CTableEtudiants {
         }
         return res;
     }
-    
+
     CEtudiant convertirResultEtudiant(ResultSet result) {
-        
+
         try {
             int idEtudiant = result.getInt("idEtudiant");
             int idSessionFormation = result.getInt("idSessionFormation");
@@ -78,9 +74,9 @@ public class CTableEtudiants {
             return null;
         }
     }
-    
-    CListeEtudiants lireEtudiants() {
-        
+
+    public CListeEtudiants lireEtudiants() {
+
         if (bdd.connecter() == true) {
             CListeEtudiants listeEtudiants = new CListeEtudiants();
             ResultSet result = bdd.executerRequeteQuery("select * from tableetudiants");
@@ -99,8 +95,8 @@ public class CTableEtudiants {
         }
         return null;
     }
-    
-    CEtudiant lireEtudiant(int idEtu) {
+
+    public CEtudiant lireEtudiant(int idEtu) {
         CEtudiant etudiant = null;
         if (bdd.connecter() == true) {
             System.out.println("Connexion OK");
@@ -120,7 +116,7 @@ public class CTableEtudiants {
     }
 
     // inserer un nouvel étudiant dans la base, retourne 1 si éxecuté
-    int insererEtudiant(CEtudiant etudiant) {
+    public int insererEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
             String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
@@ -129,9 +125,9 @@ public class CTableEtudiants {
                     + "`codePostal`, `numeroVoie`, `typeVoie`, `nomVoie`, `mail`,"
                     + " `telephone1`, `telephone2`, `infosComplementaires`) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            
+
             try {
-                
+
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
                 if (etudiant.getSessionFormation() == null) {
                     pstmt.setNull(1, java.sql.Types.INTEGER);
@@ -144,7 +140,7 @@ public class CTableEtudiants {
                 pstmt.setString(5, etudiant.getNumeroSS());
                 pstmt.setString(6, etudiant.getCommune());
                 pstmt.setString(7, etudiant.getCodePostal());
-                
+
                 if ("".equals(etudiant.getNumeroVoie())) {
                     pstmt.setNull(8, java.sql.Types.VARCHAR);
                 } else {
@@ -154,7 +150,7 @@ public class CTableEtudiants {
                 pstmt.setString(10, etudiant.getNomVoie());
                 pstmt.setString(11, etudiant.getMail());
                 pstmt.setString(12, etudiant.getTelephone1());
-                
+
                 if ("".equals(etudiant.getTelephone2())) {
                     pstmt.setNull(13, java.sql.Types.VARCHAR);
                 } else {
@@ -166,7 +162,7 @@ public class CTableEtudiants {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
                 res = 1;
             }
-            
+
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");
@@ -175,11 +171,11 @@ public class CTableEtudiants {
     }
 
     // met a jour un étudiant dans la base avec un prepared statement, retourne 1 si éxecuté
-    int mettreAJourEtudiant(CEtudiant etudiant) {
+    public int mettreAJourEtudiant(CEtudiant etudiant) {
         int res = 0;
         if (bdd.connecter() == true) {
             String dateNaissance = bdd.formaterDate(etudiant.getDateNaissance());
-            
+
             String req = "UPDATE tableetudiants "
                     + "SET `IdSessionFormation` = ? , `nom` = ? , `prenom` = ? ,"
                     + " `dateNaissance` = ? , `numeroSS` = ? ,"
@@ -189,7 +185,7 @@ public class CTableEtudiants {
                     + " `infosComplementaires` = ?  WHERE"
                     + " `tableetudiants`.`idEtudiant` =" + etudiant.getIdEtudiant() + ";";
             try {
-                
+
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
                 if (etudiant.getSessionFormation().getIdSessionFormation() <= 0) {
                     pstmt.setNull(1, java.sql.Types.INTEGER);
@@ -202,7 +198,7 @@ public class CTableEtudiants {
                 pstmt.setString(5, etudiant.getNumeroSS());
                 pstmt.setString(6, etudiant.getCommune());
                 pstmt.setString(7, etudiant.getCodePostal());
-                
+
                 if ("".equals(etudiant.getNumeroVoie())) {
                     pstmt.setNull(8, java.sql.Types.VARCHAR);
                 } else {
@@ -212,14 +208,14 @@ public class CTableEtudiants {
                 pstmt.setString(10, etudiant.getNomVoie());
                 pstmt.setString(11, etudiant.getMail());
                 pstmt.setString(12, etudiant.getTelephone1());
-                
+
                 if ("".equals(etudiant.getTelephone2())) {
                     pstmt.setNull(13, java.sql.Types.VARCHAR);
                 } else {
                     pstmt.setString(13, etudiant.getTelephone2());
                 }
                 pstmt.setString(14, etudiant.getInfoComplementaire());
-                
+
                 System.out.println(pstmt);
                 pstmt.execute();
                 res = 1;
@@ -227,7 +223,7 @@ public class CTableEtudiants {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
                 res = 0;
             }
-            
+
             bdd.deconnecter();
         } else {
             System.out.println("Connexion KO");
@@ -250,10 +246,10 @@ public class CTableEtudiants {
     }
 
     // supprime étudiant par rapport à son ID dans la classe
-    int supprimerEtudiant(CEtudiant etudiant) {
+    public int supprimerEtudiant(CEtudiant etudiant) {
         int res = -1;
         if (bdd.connecter() == true) {
-            
+
             String req = "DELETE FROM tableetudiants WHERE `tableetudiants`.`id` = " + etudiant.getIdEtudiant();
             res = bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
@@ -276,11 +272,23 @@ public class CTableEtudiants {
         return res;
     }
 
+    public CListeSessionFormation getListeSessionFormation() {
+        return listeSessionFormation;
+    }
+
+    public void setListeSessionFormation(CListeSessionFormation listeSessionFormation) {
+        this.listeSessionFormation = listeSessionFormation;
+    }
+
+    public void setBdd(CBDD bdd) {
+        this.bdd = bdd;
+    }
+
     // methode test
     public static void main(String[] args) {
         CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
         CTableEtudiants tableEtudiants = new CTableEtudiants(bdd);
-        
+
         CTableSessionFormation tableSession = new CTableSessionFormation(bdd);
 
         // Création de l'association simple entre TableEtudiants et CBDD
@@ -307,15 +315,11 @@ public class CTableEtudiants {
 //                    "0203040506",
 //                    ""));
 //        }
-
-
 //        // mise a jour étudiant
 //        CEtudiant etudiant = listeEtudiants.selectionnerEtudiant(26);
 //        etudiant.setSessionFormation(session);
 //        
 //        tableEtudiants.mettreAJourEtudiant(listeEtudiants.selectionnerEtudiant(26));
-
-        
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();
         listeEtudiants.toString();
 ////        test suppression de tous les étudiants
