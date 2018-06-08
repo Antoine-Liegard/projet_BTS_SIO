@@ -29,65 +29,70 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="LabelNumSS" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="LabelCodePostal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TextFieldCodePostal" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="LabelCommune" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TextFieldCommune" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="TextFieldNumSS" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ComboSessionFormation" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="TextFieldNumVoie" max="32767" attributes="0"/>
-                                          <Component id="LabelNumVoie" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="TextFieldTypeVoie" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <Component id="LabelTypeVoie" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="LabelNomVoie" min="-2" max="-2" attributes="0"/>
-                                          <Component id="TextFieldNomVoie" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="mainLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="LabelNom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="ButtonInsert" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="ButtonCancel" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="TextFieldNom" min="-2" pref="175" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="LabelPrenom" min="-2" max="-2" attributes="0"/>
-                                          <Component id="TextFieldPrenom" min="-2" pref="175" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="LabeDate" max="32767" attributes="0"/>
-                                          <Component id="TextFieldDate" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="TabelInfoComp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="TextFieldInfoComp" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="TextFieldNumVoie" max="32767" attributes="0"/>
+                                      <Component id="LabelNumVoie" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="TextFieldTypeVoie" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="LabelTypeVoie" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelNomVoie" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TextFieldNomVoie" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="mainLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LabelNom" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ButtonInsert" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="ButtonCancel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="TextFieldNom" min="-2" pref="175" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelPrenom" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TextFieldPrenom" min="-2" pref="175" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="LabeDate" max="32767" attributes="0"/>
+                                      <Component id="TextFieldDate" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelCodePostal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TextFieldCodePostal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelCommune" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TextFieldCommune" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                           <Component id="LabelMail" min="-2" max="-2" attributes="0"/>
                           <Component id="TextFieldMail" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -107,20 +112,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="LabelNumSS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="TextFieldNumSS" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ComboSessionFormation" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="TabelInfoComp" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="TextFieldInfoCOmp" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -199,7 +191,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="TabelInfoComp" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="TextFieldInfoCOmp" min="-2" max="-2" attributes="0"/>
+              <Component id="TextFieldInfoComp" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ButtonInsert" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -420,7 +412,7 @@
         <Property name="text" type="java.lang.String" value="Information compl&#xe9;mentaire"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TextFieldInfoCOmp">
+    <Component class="javax.swing.JTextField" name="TextFieldInfoComp">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 30]"/>
@@ -432,19 +424,13 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="ComboSessionFormation">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[50, 30]"/>
         </Property>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//for (int i = 0; i &lt; listeSessionFormation.listeSessionFormation.size(); i++) {&#xa;//    ComboSessionFormation.addItem(listeSessionFormation.listeSessionFormation.get(i).toString());&#xa;//}"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
       </AuxValues>
     </Component>
   </SubComponents>

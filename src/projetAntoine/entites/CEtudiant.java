@@ -29,6 +29,7 @@ public class CEtudiant {
             String prenom, GregorianCalendar dateNaissance, String numeroSS, 
             String commune, String codePostal, String numeroVoie, String typeVoie, 
             String nomVoie, String mail, String telephone1, String telephone2, String infoComplementaire) {
+             
         this.idEtudiant = idEtudiant;
         if (sessionFormation != null) {
             this.sessionFormation = sessionFormation;
@@ -49,6 +50,8 @@ public class CEtudiant {
         this.numeroSS = numeroSS;
         this.infoComplementaires = infoComplementaire;
     }
+    
+    
 
     String gregorianCalendarToString(GregorianCalendar gc) {
         return "" + gc.get(GregorianCalendar.YEAR)

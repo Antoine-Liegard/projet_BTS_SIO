@@ -33,7 +33,6 @@ public class CSessionFormation {
         this.finSession = finSession;
     }
 
-
     // methode de formatage de la date
     String gregorianCalendarToString(GregorianCalendar gc) {
         return "" + gc.get(GregorianCalendar.YEAR)
@@ -48,7 +47,15 @@ public class CSessionFormation {
     // toString retournant une chaine avec le diplome, le centre de formation et les dates de debut et fin
     @Override
     public String toString() {
-        return formation.getLibelleDiplome() + " " + centreFormation.getRaisonSociale() + " " + gregorianCalendarToString(debutSession) + " " + gregorianCalendarToString(finSession);
+        String optionDiplome = "";
+        if (formation.getOptionDiplome() != null) {
+            optionDiplome += " " + formation.getOptionDiplome();
+        }
+        return Integer.toString(idSessionFormation) + " " + formation.getLibelleDiplome() + optionDiplome + " " + centreFormation.getRaisonSociale() + dateToString();
+    }
+
+    public String dateToString() {
+        return " du " + gregorianCalendarToString(debutSession) + " au " + gregorianCalendarToString(finSession);
     }
 
     public int getIdSessionFormation() {
@@ -91,11 +98,8 @@ public class CSessionFormation {
         this.finSession = finSession;
     }
 
-    
-    
     // test
-    
     public static void main(String[] args) {
-        
+
     }
 }
