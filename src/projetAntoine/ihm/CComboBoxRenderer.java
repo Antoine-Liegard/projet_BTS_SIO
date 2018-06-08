@@ -15,12 +15,15 @@ import projetAntoine.entites.CSessionFormation;
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-    public class CComboBoxRenderer extends JLabel implements ListCellRenderer {
+public class CComboBoxRenderer extends JLabel implements ListCellRenderer {
 
-        @Override
-        public Component getListCellRendererComponent(JList jlist, Object e, int i, boolean bln, boolean bln1) {
-            JLabel l = new JLabel(((CSessionFormation) e).toString());
-            return l;
+    @Override
+    public Component getListCellRendererComponent(JList jlist, Object e, int i, boolean bln, boolean bln1) {
+        JLabel l = new JLabel(" Pas de formation");
+        if (e != null) {
+            l = new JLabel(((CSessionFormation) e).toString());
         }
-
+        return l;
     }
+
+}

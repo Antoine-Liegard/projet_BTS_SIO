@@ -6,9 +6,10 @@
 package projetAntoine.ihm;
 
 import java.util.GregorianCalendar;
+import projetAntoine.entites.CEntitee;
 import projetAntoine.entites.CEtudiant;
-import projetAntoine.entites.CListeSessionFormation;
 import projetAntoine.entites.CSessionFormation;
+import projetAntoine.persistance.CPersistance;
 
 /**
  *
@@ -19,17 +20,27 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
     /**
      * Creates new form JPanelInsertEtudiant
      */
-    protected CListeSessionFormation listeSessionFormation;
+    protected CEntitee entitees;
+    protected CPersistance persistance;
 
-    public JPanelInsertEtudiant(CListeSessionFormation listeSessionFormation) {
-        this.listeSessionFormation = listeSessionFormation;
+    public JPanelInsertEtudiant(CEntitee entitees, CPersistance persistance) {
+        this.entitees = entitees;
+        this.persistance = persistance;
         initComponents();
 
-        CSessionFormation[] tabSession = new CSessionFormation[listeSessionFormation.listeSessionFormation.size()];
-
+        CSessionFormation[] tabSession = new CSessionFormation[(entitees.getListeSessionFormation().listeSessionFormation.size())+1];
+        
         for (int i = 0; i < tabSession.length; i++) {
-            tabSession[i] = listeSessionFormation.listeSessionFormation.get(i);
+            if (i != tabSession.length-1) {
+                tabSession[i] = entitees.getListeSessionFormation().listeSessionFormation.get(i);
+            }else{
+                tabSession[i]= null;
+            }
+            
+            
         }
+        
+        
         this.ComboSessionFormation.setModel(new javax.swing.DefaultComboBoxModel(tabSession));
         this.ComboSessionFormation.setRenderer(new CComboBoxRenderer());
 
@@ -314,7 +325,7 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         String prenom = TextFieldPrenom.getText();
         String date = TextFieldDate.getText();
         int year = Integer.parseInt(date.substring(6, 10));
-        int month = Integer.parseInt(date.substring(3, 5));
+        int month = Integer.parseInt(date.substring(3, 5)) -1;
         int day = Integer.parseInt(date.substring(0, 2));
         GregorianCalendar dateNaissance = new GregorianCalendar(year, month, day);
         String numeroSS = TextFieldNumSS.getText();
@@ -329,8 +340,12 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         String infoComplementaire = TextFieldInfoComp.getText();
         CSessionFormation formation = (CSessionFormation) ComboSessionFormation.getSelectedItem();
         CEtudiant etudiant = new CEtudiant(0, formation, nom, prenom, dateNaissance, numeroSS, commune, codePostal, numeroVoie, typeVoie, nomVoie, mail, telephone1, telephone2, infoComplementaire);
+       
+     
+        persistance.getTableEtudiants().insererEtudiant(etudiant);
         
-        //finir methode d'insertion
+        entitees.initEntitée(persistance);
+        this.setVisible(false);
     }//GEN-LAST:event_ButtonInsertActionPerformed
 
     private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed

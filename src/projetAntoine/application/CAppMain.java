@@ -33,7 +33,7 @@ public class CAppMain {
 
         
         
-        app.mainFrame = new JMainFrame(app.entitee);
+        app.mainFrame = new JMainFrame(app.entitee, app.persistance);
         app.mainFrame.setVisible(true);
         
     }

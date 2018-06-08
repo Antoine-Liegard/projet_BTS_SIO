@@ -6,6 +6,7 @@
 package projetAntoine.ihm;
 
 import projetAntoine.entites.CEntitee;
+import projetAntoine.persistance.CPersistance;
 
 /**
  *
@@ -14,12 +15,17 @@ import projetAntoine.entites.CEntitee;
 public class JMainFrame extends javax.swing.JFrame {
 
     CEntitee entitee;
+    CPersistance persistance;
 
     /**
      * Creates new form NewMDIApplication
+     *
+     * @param entitee
+     * @param persistance
      */
-    public JMainFrame(CEntitee entitee) {
+    public JMainFrame(CEntitee entitee, CPersistance persistance) {
         this.entitee = entitee;
+        this.persistance = persistance;
         initComponents();
     }
 
@@ -129,7 +135,7 @@ public class JMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JPanelInsertEtudiant panel = new JPanelInsertEtudiant(this.entitee.getListeSessionFormation());
+        JPanelInsertEtudiant panel = new JPanelInsertEtudiant(this.entitee, this.persistance);
         panel.setBounds(150, 15, panel.getPreferredSize().height, panel.getPreferredSize().width);
         panel.setVisible(true);
         desktopPane.add(panel);
