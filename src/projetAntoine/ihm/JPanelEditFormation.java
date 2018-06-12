@@ -5,6 +5,8 @@
  */
 package projetAntoine.ihm;
 
+import java.awt.event.ItemEvent;
+import javax.swing.JOptionPane;
 import projetAntoine.entites.CEntitees;
 import projetAntoine.entites.CFormation;
 import projetAntoine.persistance.CPersistance;
@@ -13,7 +15,7 @@ import projetAntoine.persistance.CPersistance;
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-public class JPanelInsertFormation extends javax.swing.JPanel {
+public class JPanelEditFormation extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelInsertEtudiant
@@ -21,10 +23,23 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
     protected CEntitees entitees;
     protected CPersistance persistance;
 
-    public JPanelInsertFormation(CEntitees entitees, CPersistance persistance) {
+    public JPanelEditFormation(CEntitees entitees, CPersistance persistance) {
         this.entitees = entitees;
         this.persistance = persistance;
         initComponents();
+
+        CFormation[] tabFormations = new CFormation[(entitees.getListeFormations().listeFormations.size())];
+
+        for (int i = 0; i < tabFormations.length; i++) {
+            if (i != tabFormations.length) {
+                tabFormations[i] = entitees.getListeFormations().listeFormations.get(i);
+            } else {
+                tabFormations[i] = null;
+            }
+        }
+        
+        this.ComboFormation.setModel(new javax.swing.DefaultComboBoxModel(tabFormations));
+        this.ComboFormation.setRenderer(new CComboBoxRenderer());
     }
 
     /**
@@ -36,6 +51,7 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ButtonDelete = new javax.swing.JButton();
         mainLabel = new javax.swing.JLabel();
         LabelLibellé = new javax.swing.JLabel();
         TextFieldLibellé = new javax.swing.JTextField();
@@ -43,11 +59,20 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
         ButtonCancel = new javax.swing.JButton();
         TextFieldOption = new javax.swing.JTextField();
         LabelOption = new javax.swing.JLabel();
+        ButtonDelete1 = new javax.swing.JButton();
+        ComboFormation = new javax.swing.JComboBox<>();
+
+        ButtonDelete.setText("Supprimer");
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
 
         setMinimumSize(new java.awt.Dimension(150, 150));
         setPreferredSize(new java.awt.Dimension(150, 500));
 
-        mainLabel.setText("Nouvelle formation");
+        mainLabel.setText("Modifier formation");
 
         LabelLibellé.setText("Libellé diplome *");
 
@@ -55,7 +80,7 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
         TextFieldLibellé.setName(""); // NOI18N
         TextFieldLibellé.setPreferredSize(new java.awt.Dimension(50, 30));
 
-        ButtonInsert.setText("Insérrer");
+        ButtonInsert.setText("Modifier");
         ButtonInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonInsertActionPerformed(evt);
@@ -75,6 +100,15 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
 
         LabelOption.setText("Option diplome");
 
+        ButtonDelete1.setText("Supprimer");
+
+        ComboFormation.setMaximumSize(new java.awt.Dimension(31, 24));
+        ComboFormation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboFormationItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,37 +118,46 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mainLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mainLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(ComboFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(LabelLibellé)
                             .addComponent(TextFieldLibellé, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LabelOption)
-                            .addComponent(TextFieldOption, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TextFieldOption, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 109, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ButtonInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonCancel)))
-                .addContainerGap(123, Short.MAX_VALUE))
+                        .addComponent(ButtonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonDelete1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mainLabel)
+                    .addComponent(ComboFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelLibellé)
                     .addComponent(LabelOption))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextFieldOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldLibellé, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(TextFieldLibellé, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextFieldOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonInsert)
-                    .addComponent(ButtonCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ButtonCancel)
+                    .addComponent(ButtonDelete1))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,10 +177,30 @@ public class JPanelInsertFormation extends javax.swing.JPanel {
 //        this.validate();
     }//GEN-LAST:event_ButtonCancelActionPerformed
 
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        CFormation formation = (CFormation) ComboFormation.getSelectedItem();
+        persistance.getTableFormation().supprimerFormation(formation);
+        JOptionPane.showMessageDialog(null, "Formation supprimé");
+        entitees.initEntitée(persistance);
+        // todo besoin de recharger 
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
+
+    private void ComboFormationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboFormationItemStateChanged
+        if ((evt.getStateChange() == ItemEvent.SELECTED)) {
+            CFormation selection = (CFormation) ComboFormation.getSelectedItem();
+            TextFieldLibellé.setText(selection.getLibelleDiplome());
+            TextFieldOption.setText(selection.getOptionDiplome());
+
+        }
+    }//GEN-LAST:event_ComboFormationItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCancel;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonDelete1;
     private javax.swing.JButton ButtonInsert;
+    private javax.swing.JComboBox<String> ComboFormation;
     private javax.swing.JLabel LabelLibellé;
     private javax.swing.JLabel LabelOption;
     private javax.swing.JTextField TextFieldLibellé;

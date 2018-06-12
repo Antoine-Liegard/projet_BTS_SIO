@@ -43,8 +43,8 @@ public class JMainFrame extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         CreateEtuButton = new javax.swing.JButton();
         EditEtuButton = new javax.swing.JButton();
-        EditEtuButton1 = new javax.swing.JButton();
-        CreateEtuButton1 = new javax.swing.JButton();
+        CreateFormationButton = new javax.swing.JButton();
+        EditFormationButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -78,23 +78,23 @@ public class JMainFrame extends javax.swing.JFrame {
         desktopPane.add(EditEtuButton);
         EditEtuButton.setBounds(10, 50, 120, 25);
 
-        EditEtuButton1.setText("Modifier étudiant");
-        EditEtuButton1.addActionListener(new java.awt.event.ActionListener() {
+        CreateFormationButton.setText("Créer formation");
+        CreateFormationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditEtuButton1ActionPerformed(evt);
+                CreateFormationButtonActionPerformed(evt);
             }
         });
-        desktopPane.add(EditEtuButton1);
-        EditEtuButton1.setBounds(10, 50, 120, 25);
+        desktopPane.add(CreateFormationButton);
+        CreateFormationButton.setBounds(10, 110, 120, 25);
 
-        CreateEtuButton1.setText("Créer formation");
-        CreateEtuButton1.addActionListener(new java.awt.event.ActionListener() {
+        EditFormationButton.setText("Modifier formation");
+        EditFormationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CreateEtuButton1ActionPerformed(evt);
+                EditFormationButtonActionPerformed(evt);
             }
         });
-        desktopPane.add(CreateEtuButton1);
-        CreateEtuButton1.setBounds(10, 100, 120, 25);
+        desktopPane.add(EditFormationButton);
+        EditFormationButton.setBounds(10, 140, 120, 25);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -184,13 +184,19 @@ public class JMainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_EditEtuButtonActionPerformed
 
-    private void EditEtuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEtuButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EditEtuButton1ActionPerformed
+    private void CreateFormationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateFormationButtonActionPerformed
+        JPanelInsertFormation panel = new JPanelInsertFormation(entitee, persistance);
+        panel.setBounds(posX, posY, panel.getPreferredSize().height, panel.getPreferredSize().width);
+        panel.setVisible(true);
+        desktopPane.add(panel);
+    }//GEN-LAST:event_CreateFormationButtonActionPerformed
 
-    private void CreateEtuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateEtuButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CreateEtuButton1ActionPerformed
+    private void EditFormationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditFormationButtonActionPerformed
+        JPanelEditFormation panel = new JPanelEditFormation(entitee, persistance);
+        panel.setBounds(posX, posY, panel.getPreferredSize().height, panel.getPreferredSize().width);
+        panel.setVisible(true);
+        desktopPane.add(panel);
+    }//GEN-LAST:event_EditFormationButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,9 +236,9 @@ public class JMainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateEtuButton;
-    private javax.swing.JButton CreateEtuButton1;
+    private javax.swing.JButton CreateFormationButton;
     private javax.swing.JButton EditEtuButton;
-    private javax.swing.JButton EditEtuButton1;
+    private javax.swing.JButton EditFormationButton;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;

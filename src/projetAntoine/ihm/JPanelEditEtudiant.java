@@ -69,7 +69,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
         mainLabel = new javax.swing.JLabel();
         LabelNom = new javax.swing.JLabel();
         TextFieldNom = new javax.swing.JTextField();
-        ButtonInsert = new javax.swing.JButton();
+        ButtonUpdate = new javax.swing.JButton();
         ButtonCancel = new javax.swing.JButton();
         TextFieldPrenom = new javax.swing.JTextField();
         LabelPrenom = new javax.swing.JLabel();
@@ -112,10 +112,10 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
         TextFieldNom.setName(""); // NOI18N
         TextFieldNom.setPreferredSize(new java.awt.Dimension(50, 30));
 
-        ButtonInsert.setText("Modifier");
-        ButtonInsert.addActionListener(new java.awt.event.ActionListener() {
+        ButtonUpdate.setText("Modifier");
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonInsertActionPerformed(evt);
+                ButtonUpdateActionPerformed(evt);
             }
         });
 
@@ -265,7 +265,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
                                         .addComponent(LabelCommune)
                                         .addComponent(TextFieldCommune, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(ButtonInsert)
+                                    .addComponent(ButtonUpdate)
                                     .addGap(18, 18, 18)
                                     .addComponent(ButtonCancel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -351,7 +351,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
                 .addComponent(TextFieldInfoComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonInsert)
+                    .addComponent(ButtonUpdate)
                     .addComponent(ButtonCancel)
                     .addComponent(ButtonDelete))
                 .addContainerGap())
@@ -362,7 +362,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
             //}
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonInsertActionPerformed
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
         CEtudiant etudiant = (CEtudiant) ComboEtudiant.getSelectedItem();
         String nom = TextFieldNom.getText();
         String prenom = TextFieldPrenom.getText();
@@ -388,7 +388,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
 
         entitees.initEntitée(persistance);
         this.setVisible(false);
-    }//GEN-LAST:event_ButtonInsertActionPerformed
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
 
     private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed
         this.setVisible(false);
@@ -432,7 +432,7 @@ public class JPanelEditEtudiant extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCancel;
     private javax.swing.JButton ButtonDelete;
-    private javax.swing.JButton ButtonInsert;
+    private javax.swing.JButton ButtonUpdate;
     private javax.swing.JComboBox<String> ComboEtudiant;
     private javax.swing.JComboBox<String> ComboSessionFormation;
     private javax.swing.JLabel LabeDate;

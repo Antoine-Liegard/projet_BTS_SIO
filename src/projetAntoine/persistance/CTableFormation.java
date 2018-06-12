@@ -164,6 +164,19 @@ public class CTableFormation {
         return res;
     }
 
+    public int supprimerFormation(CFormation formation) {
+        int res = -1;
+        if (bdd.connecter() == true) {
+
+            String req = "DELETE FROM tableformations WHERE `tableformations`.`idFormation` = " + formation.getIdFormation();
+            res = bdd.executerRequeteUpdate(req);
+            bdd.deconnecter();
+        } else {
+            System.out.println("Connexion KO");
+        }
+        return res;
+    }
+
     // methode test
     public static void main(String[] args) {
         CBDD bdd = new CBDD(new CParametresBDD("parametresBdd.properties"));
