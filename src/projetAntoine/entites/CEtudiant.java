@@ -25,11 +25,11 @@ public class CEtudiant {
     protected String infoComplementaires;
 
     //constructeur complet 
-    public CEtudiant(int idEtudiant, CSessionFormation sessionFormation , String nom, 
-            String prenom, GregorianCalendar dateNaissance, String numeroSS, 
-            String commune, String codePostal, String numeroVoie, String typeVoie, 
+    public CEtudiant(int idEtudiant, CSessionFormation sessionFormation, String nom,
+            String prenom, GregorianCalendar dateNaissance, String numeroSS,
+            String commune, String codePostal, String numeroVoie, String typeVoie,
             String nomVoie, String mail, String telephone1, String telephone2, String infoComplementaire) {
-             
+
         this.idEtudiant = idEtudiant;
         if (sessionFormation != null) {
             this.sessionFormation = sessionFormation;
@@ -41,7 +41,7 @@ public class CEtudiant {
         this.dateNaissance = dateNaissance;
         this.commune = commune;
         this.codePostal = codePostal;
-        this.numeroVoie = numeroVoie;
+        this.numeroVoie = numeroVoie;               
         this.typeVoie = typeVoie;
         this.nomVoie = nomVoie;
         this.mail = mail;
@@ -50,27 +50,36 @@ public class CEtudiant {
         this.numeroSS = numeroSS;
         this.infoComplementaires = infoComplementaire;
     }
-    
-    
 
-    String gregorianCalendarToString(GregorianCalendar gc) {
-        return "" + gc.get(GregorianCalendar.YEAR)
-                + '/'
-                + gc.get(GregorianCalendar.MONTH) + '/'
-                + gc.get(GregorianCalendar.DAY_OF_MONTH) + ' '
-                + gc.get(GregorianCalendar.HOUR) + ':'
-                + gc.get(GregorianCalendar.MINUTE) + ':'
-                + gc.get(GregorianCalendar.SECOND);
+// methode de formatage de la date, avec des vérifications pour ajouter un zéro si valeur<10
+    public String gregorianCalendarToString(GregorianCalendar gc) {
+
+        String message = "";
+        if (gc.get(GregorianCalendar.DAY_OF_MONTH) < 10) {
+            message += "0" + Integer.toString(gc.get(GregorianCalendar.DAY_OF_MONTH)) + '/';
+        } else {
+            message += Integer.toString(gc.get(GregorianCalendar.DAY_OF_MONTH)) + '/';
+
+        }
+
+        if (gc.get(GregorianCalendar.MONTH) < 9) {
+            message += "0" + Integer.toString(gc.get(GregorianCalendar.MONTH) + 1) + '/';
+        } else {
+            message += Integer.toString(gc.get(GregorianCalendar.MONTH) + 1) + '/';
+
+        }
+
+        message += gc.get(GregorianCalendar.YEAR);
+
+        return message;
     }
 
     // toString retournant une chaine avec l'ID, le nom, le prénom et la date de naissance
     @Override
     public String toString() {
-        return "" + idEtudiant + " " + nom + " " + prenom + " " + gregorianCalendarToString(dateNaissance);
+        return nom + " " + prenom + " " + gregorianCalendarToString(dateNaissance);
     }
 
-    
-    
     // getter et setter, générés automatiquement
     public int getIdEtudiant() {
         return idEtudiant;
@@ -79,7 +88,6 @@ public class CEtudiant {
     public void setIdEtudiant(int idEtudiant) {
         this.idEtudiant = idEtudiant;
     }
-
 
     public String getNom() {
         return nom;
@@ -176,15 +184,6 @@ public class CEtudiant {
     public void setNumeroSS(String numeroSS) {
         this.numeroSS = numeroSS;
     }
-    
-    
-    public String getInfoComplementaire() {
-        return infoComplementaires;
-    }
-
-    public void setInfoComplementaire(String infoComplementaire) {
-        this.infoComplementaires = infoComplementaire;
-    }
 
     public CSessionFormation getSessionFormation() {
         return sessionFormation;
@@ -202,5 +201,4 @@ public class CEtudiant {
         this.infoComplementaires = infoComplementaires;
     }
 
-    
 }

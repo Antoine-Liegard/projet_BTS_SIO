@@ -5,7 +5,9 @@
  */
 package projetAntoine.ihm;
 
+import java.awt.event.ItemEvent;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 import projetAntoine.entites.CEntitees;
 import projetAntoine.entites.CEtudiant;
 import projetAntoine.entites.CSessionFormation;
@@ -15,34 +17,43 @@ import projetAntoine.persistance.CPersistance;
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-public class JPanelInsertEtudiant extends javax.swing.JPanel {
+public class JPanelEditEtudiant extends javax.swing.JPanel {
 
     /**
-     * Creates new form JPanelInsertEtudiant
+     * Creates new form JPanelEditEtudiant
      */
     protected CEntitees entitees;
     protected CPersistance persistance;
 
-    public JPanelInsertEtudiant(CEntitees entitees, CPersistance persistance) {
+    public JPanelEditEtudiant(CEntitees entitees, CPersistance persistance) {
         this.entitees = entitees;
         this.persistance = persistance;
-        initComponents();
 
-        CSessionFormation[] tabSession = new CSessionFormation[(entitees.getListeSessionFormation().listeSessionFormation.size())+1];
-        
+        initComponents();
+        //remplissage de la comboBoxSessionFormation
+        CSessionFormation[] tabSession = new CSessionFormation[(entitees.getListeSessionFormation().listeSessionFormation.size()) + 1];
+
         for (int i = 0; i < tabSession.length; i++) {
-            if (i != tabSession.length-1) {
+            if (i != tabSession.length - 1) {
                 tabSession[i] = entitees.getListeSessionFormation().listeSessionFormation.get(i);
-            }else{
-                tabSession[i]= null;
+            } else {
+                tabSession[i] = null;
             }
-            
-            
+
         }
-        
-        
         this.ComboSessionFormation.setModel(new javax.swing.DefaultComboBoxModel(tabSession));
         this.ComboSessionFormation.setRenderer(new CComboBoxRenderer());
+
+        //remplissage de la comboboxEtudiant
+        CEtudiant[] tabEtu = new CEtudiant[(entitees.getListeEtudiants().listeEtudiant.size())];
+
+        for (int i = 0; i < tabEtu.length; i++) {
+
+            tabEtu[i] = entitees.getListeEtudiants().listeEtudiant.get(i);
+
+        }
+        this.ComboEtudiant.setModel(new javax.swing.DefaultComboBoxModel(tabEtu));
+        this.ComboEtudiant.setRenderer(new CComboBoxRenderer());
 
     }
 
@@ -85,20 +96,23 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         TabelInfoComp = new javax.swing.JLabel();
         TextFieldInfoComp = new javax.swing.JTextField();
         ComboSessionFormation = new javax.swing.JComboBox<>();
+        ComboEtudiant = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        ButtonDelete = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(500, 500));
         setPreferredSize(new java.awt.Dimension(500, 500));
 
-        mainLabel.setText("Nouveau étudiant");
+        mainLabel.setText("Modifier étudiant");
 
         LabelNom.setText("Nom étudiant *");
 
+        TextFieldNom.setMaximumSize(new java.awt.Dimension(50, 30));
         TextFieldNom.setMinimumSize(new java.awt.Dimension(50, 30));
         TextFieldNom.setName(""); // NOI18N
         TextFieldNom.setPreferredSize(new java.awt.Dimension(50, 30));
 
-        ButtonInsert.setText("Insérrer");
+        ButtonInsert.setText("Modifier");
         ButtonInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonInsertActionPerformed(evt);
@@ -112,6 +126,7 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
             }
         });
 
+        TextFieldPrenom.setMaximumSize(new java.awt.Dimension(50, 30));
         TextFieldPrenom.setMinimumSize(new java.awt.Dimension(50, 30));
         TextFieldPrenom.setName(""); // NOI18N
         TextFieldPrenom.setPreferredSize(new java.awt.Dimension(50, 30));
@@ -147,6 +162,7 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         LabelNomVoie.setText("Nom voie *");
 
         TextFieldNomVoie.setMinimumSize(new java.awt.Dimension(50, 30));
+        TextFieldNomVoie.setName(""); // NOI18N
         TextFieldNomVoie.setPreferredSize(new java.awt.Dimension(50, 30));
 
         LabelMail.setText("Mail *");
@@ -176,7 +192,21 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
 
         ComboSessionFormation.setMaximumSize(new java.awt.Dimension(50, 30));
 
+        ComboEtudiant.setMaximumSize(new java.awt.Dimension(31, 24));
+        ComboEtudiant.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboEtudiantItemStateChanged(evt);
+            }
+        });
+
         jLabel1.setText("Session de formation");
+
+        ButtonDelete.setText("Supprimer");
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -185,83 +215,96 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNumSS)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TextFieldNumSS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ComboSessionFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TabelInfoComp)
-                    .addComponent(TextFieldInfoComp, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
+                        .addComponent(TextFieldInfoComp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(88, 88, 88))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LabelTel1)
+                                    .addComponent(LabelNumSS)
+                                    .addComponent(TextFieldTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(LabelTel2)
+                                    .addComponent(TextFieldTel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(TextFieldNumVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(LabelNumVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(22, 22, 22)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TextFieldTypeVoie, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(LabelTypeVoie))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelNomVoie)
-                                .addComponent(TextFieldNomVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(mainLabel)
-                                .addComponent(LabelNom)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(TextFieldNumVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(LabelNumVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(22, 22, 22)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TextFieldTypeVoie, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(LabelTypeVoie))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(LabelNomVoie)
+                                        .addComponent(TextFieldNomVoie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(LabelNom))
+                                    .addGap(15, 15, 15)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(LabelPrenom)
+                                        .addComponent(TextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(LabeDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(TextFieldDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(LabelCodePostal)
+                                        .addComponent(TextFieldCodePostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(LabelCommune)
+                                        .addComponent(TextFieldCommune, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(ButtonInsert)
                                     .addGap(18, 18, 18)
-                                    .addComponent(ButtonCancel))
-                                .addComponent(TextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(15, 15, 15)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelPrenom)
-                                .addComponent(TextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(LabeDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TextFieldDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelCodePostal)
-                                .addComponent(TextFieldCodePostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(LabelCommune)
-                                .addComponent(TextFieldCommune, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(LabelMail)
-                    .addComponent(TextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelTel1)
-                            .addComponent(TextFieldTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelTel2)
-                            .addComponent(TextFieldTel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addComponent(ButtonCancel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ButtonDelete)))
+                            .addComponent(LabelMail)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TextFieldNumSS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TabelInfoComp))
+                                .addGap(18, 18, 18)
+                                .addComponent(ComboSessionFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mainLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ComboEtudiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(mainLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LabeDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TextFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mainLabel)
+                            .addComponent(ComboEtudiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LabelNom)
                             .addComponent(LabelPrenom))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabeDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TextFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelNumVoie)
@@ -306,10 +349,11 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
                 .addComponent(TabelInfoComp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextFieldInfoComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonInsert)
-                    .addComponent(ButtonCancel))
+                    .addComponent(ButtonCancel)
+                    .addComponent(ButtonDelete))
                 .addContainerGap())
         );
 
@@ -319,11 +363,12 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonInsertActionPerformed
+        CEtudiant etudiant = (CEtudiant) ComboEtudiant.getSelectedItem();
         String nom = TextFieldNom.getText();
         String prenom = TextFieldPrenom.getText();
         String date = TextFieldDate.getText();
         int year = Integer.parseInt(date.substring(6, 10));
-        int month = Integer.parseInt(date.substring(3, 5)) -1;
+        int month = Integer.parseInt(date.substring(3, 5)) - 1;
         int day = Integer.parseInt(date.substring(0, 2));
         GregorianCalendar dateNaissance = new GregorianCalendar(year, month, day);
         String numeroSS = TextFieldNumSS.getText();
@@ -337,11 +382,10 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         String telephone2 = TextFieldTel2.getText();
         String infoComplementaire = TextFieldInfoComp.getText();
         CSessionFormation formation = (CSessionFormation) ComboSessionFormation.getSelectedItem();
-        CEtudiant etudiant = new CEtudiant(0, formation, nom, prenom, dateNaissance, numeroSS, commune, codePostal, numeroVoie, typeVoie, nomVoie, mail, telephone1, telephone2, infoComplementaire);
-       
-     
-        persistance.getTableEtudiants().insererEtudiant(etudiant);
-        
+        CEtudiant etudiantMaj = new CEtudiant(etudiant.getIdEtudiant(), formation, nom, prenom, dateNaissance, numeroSS, commune, codePostal, numeroVoie, typeVoie, nomVoie, mail, telephone1, telephone2, infoComplementaire);
+
+        persistance.getTableEtudiants().mettreAJourEtudiant(etudiantMaj);
+
         entitees.initEntitée(persistance);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonInsertActionPerformed
@@ -350,13 +394,46 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
         this.setVisible(false);
 
 //        //pas obligatoire, pour recharger le layout
-//        this.validate();
+//        this.revalidate();
+//        this.repaint();
     }//GEN-LAST:event_ButtonCancelActionPerformed
+
+    private void ComboEtudiantItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEtudiantItemStateChanged
+        if ((evt.getStateChange() == ItemEvent.SELECTED)) {
+            CEtudiant selection = (CEtudiant) ComboEtudiant.getSelectedItem();
+            TextFieldNom.setText(selection.getNom());
+            TextFieldPrenom.setText(selection.getPrenom());
+
+            TextFieldDate.setText(selection.gregorianCalendarToString(selection.getDateNaissance()));
+            TextFieldNumSS.setText(selection.getNumeroSS());
+            TextFieldCommune.setText(selection.getCommune());
+            TextFieldCodePostal.setText(selection.getCodePostal());
+            TextFieldNumVoie.setText(selection.getNumeroVoie());
+            TextFieldTypeVoie.setText(selection.getTypeVoie());
+            TextFieldNomVoie.setText(selection.getNomVoie());
+            TextFieldMail.setText(selection.getMail());
+            TextFieldTel1.setText(selection.getTelephone1());
+            TextFieldTel2.setText(selection.getTelephone2());
+            TextFieldInfoComp.setText(selection.getInfoComplementaires());
+            ComboSessionFormation.setSelectedItem(selection.getSessionFormation());
+
+        }
+    }//GEN-LAST:event_ComboEtudiantItemStateChanged
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        CEtudiant etudiant = (CEtudiant) ComboEtudiant.getSelectedItem();
+        persistance.getTableEtudiants().supprimerEtudiant(etudiant);
+        JOptionPane.showMessageDialog(null, "Etudiant supprimé");
+        entitees.initEntitée(persistance);
+        // todo besoin de recharger ComboEtudiant
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCancel;
+    private javax.swing.JButton ButtonDelete;
     private javax.swing.JButton ButtonInsert;
+    private javax.swing.JComboBox<String> ComboEtudiant;
     private javax.swing.JComboBox<String> ComboSessionFormation;
     private javax.swing.JLabel LabeDate;
     private javax.swing.JLabel LabelCodePostal;

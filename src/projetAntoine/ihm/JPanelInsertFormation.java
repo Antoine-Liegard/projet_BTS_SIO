@@ -15,7 +15,7 @@ import projetAntoine.persistance.CPersistance;
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-public class JPanelInsertEtudiant extends javax.swing.JPanel {
+public class JPanelInsertFormation extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelInsertEtudiant
@@ -23,7 +23,7 @@ public class JPanelInsertEtudiant extends javax.swing.JPanel {
     protected CEntitees entitees;
     protected CPersistance persistance;
 
-    public JPanelInsertEtudiant(CEntitees entitees, CPersistance persistance) {
+    public JPanelInsertFormation(CEntitees entitees, CPersistance persistance) {
         this.entitees = entitees;
         this.persistance = persistance;
         initComponents();

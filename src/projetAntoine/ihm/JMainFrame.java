@@ -5,7 +5,7 @@
  */
 package projetAntoine.ihm;
 
-import projetAntoine.entites.CEntitee;
+import projetAntoine.entites.CEntitees;
 import projetAntoine.persistance.CPersistance;
 
 /**
@@ -14,8 +14,10 @@ import projetAntoine.persistance.CPersistance;
  */
 public class JMainFrame extends javax.swing.JFrame {
 
-    CEntitee entitee;
+    CEntitees entitee;
     CPersistance persistance;
+    int posX = 150;
+    int posY = 15;
 
     /**
      * Creates new form NewMDIApplication
@@ -23,7 +25,7 @@ public class JMainFrame extends javax.swing.JFrame {
      * @param entitee
      * @param persistance
      */
-    public JMainFrame(CEntitee entitee, CPersistance persistance) {
+    public JMainFrame(CEntitees entitee, CPersistance persistance) {
         this.entitee = entitee;
         this.persistance = persistance;
         initComponents();
@@ -39,7 +41,10 @@ public class JMainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        CreateEtuButton = new javax.swing.JButton();
+        EditEtuButton = new javax.swing.JButton();
+        EditEtuButton1 = new javax.swing.JButton();
+        CreateEtuButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -55,14 +60,41 @@ public class JMainFrame extends javax.swing.JFrame {
 
         desktopPane.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jButton1.setText("Créer étudiant");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CreateEtuButton.setText("Créer étudiant");
+        CreateEtuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CreateEtuButtonActionPerformed(evt);
             }
         });
-        desktopPane.add(jButton1);
-        jButton1.setBounds(10, 10, 120, 25);
+        desktopPane.add(CreateEtuButton);
+        CreateEtuButton.setBounds(10, 20, 120, 25);
+
+        EditEtuButton.setText("Modifier étudiant");
+        EditEtuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditEtuButtonActionPerformed(evt);
+            }
+        });
+        desktopPane.add(EditEtuButton);
+        EditEtuButton.setBounds(10, 50, 120, 25);
+
+        EditEtuButton1.setText("Modifier étudiant");
+        EditEtuButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditEtuButton1ActionPerformed(evt);
+            }
+        });
+        desktopPane.add(EditEtuButton1);
+        EditEtuButton1.setBounds(10, 50, 120, 25);
+
+        CreateEtuButton1.setText("Créer formation");
+        CreateEtuButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateEtuButton1ActionPerformed(evt);
+            }
+        });
+        desktopPane.add(CreateEtuButton1);
+        CreateEtuButton1.setBounds(10, 100, 120, 25);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -134,12 +166,31 @@ public class JMainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JPanelInsertEtudiant panel = new JPanelInsertEtudiant(this.entitee, this.persistance);
-        panel.setBounds(150, 15, panel.getPreferredSize().height, panel.getPreferredSize().width);
+    private void CreateEtuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateEtuButtonActionPerformed
+
+        JPanelInsertEtudiant panelInsert = new JPanelInsertEtudiant(entitee, persistance);
+        panelInsert.setBounds(posX, posY, panelInsert.getPreferredSize().height, panelInsert.getPreferredSize().width);
+        panelInsert.setVisible(true);
+        desktopPane.add(panelInsert);
+
+    }//GEN-LAST:event_CreateEtuButtonActionPerformed
+
+    private void EditEtuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEtuButtonActionPerformed
+
+        JPanelEditEtudiant panel = new JPanelEditEtudiant(entitee, persistance);
+        panel.setBounds(posX, posY, panel.getPreferredSize().height, panel.getPreferredSize().width);
         panel.setVisible(true);
         desktopPane.add(panel);
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_EditEtuButtonActionPerformed
+
+    private void EditEtuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEtuButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditEtuButton1ActionPerformed
+
+    private void CreateEtuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateEtuButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CreateEtuButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +229,10 @@ public class JMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CreateEtuButton;
+    private javax.swing.JButton CreateEtuButton1;
+    private javax.swing.JButton EditEtuButton;
+    private javax.swing.JButton EditEtuButton1;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;
@@ -185,7 +240,6 @@ public class JMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;

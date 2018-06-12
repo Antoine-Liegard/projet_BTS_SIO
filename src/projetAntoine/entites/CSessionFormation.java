@@ -35,13 +35,26 @@ public class CSessionFormation {
 
     // methode de formatage de la date
     String gregorianCalendarToString(GregorianCalendar gc) {
-        return "" + gc.get(GregorianCalendar.YEAR)
-                + '/'
-                + gc.get(GregorianCalendar.MONTH) + '/'
-                + gc.get(GregorianCalendar.DAY_OF_MONTH) + ' '
-                + gc.get(GregorianCalendar.HOUR) + ':'
-                + gc.get(GregorianCalendar.MINUTE) + ':'
-                + gc.get(GregorianCalendar.SECOND);
+
+        String message = "";
+        if (gc.get(GregorianCalendar.DAY_OF_MONTH) < 10) {
+            message += "0" + Integer.toString(gc.get(GregorianCalendar.DAY_OF_MONTH)) + '/';
+        } else {
+            message += Integer.toString(gc.get(GregorianCalendar.DAY_OF_MONTH)) + '/';
+
+        }
+        
+        if (gc.get(GregorianCalendar.MONTH) < 9) {
+            message += "0" + Integer.toString(gc.get(GregorianCalendar.MONTH)+1) + '/';
+        } else {
+            message += Integer.toString(gc.get(GregorianCalendar.MONTH)+1) + '/';
+
+        }
+
+            message += gc.get(GregorianCalendar.YEAR);
+
+
+        return message;
     }
 
     // toString retournant une chaine avec le diplome, le centre de formation et les dates de debut et fin

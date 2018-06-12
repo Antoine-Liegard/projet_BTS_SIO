@@ -11,14 +11,14 @@ import projetAntoine.persistance.CPersistance;
  *
  * @author Antoine Liégard, liegard.antoine35@gmail.com
  */
-public class CEntitee {
+public class CEntitees {
 
     protected CListeCentreFormation listeCentreFormation;
     protected CListeEtudiants listeEtudiants;
     protected CListeFormations listeFormations;
     protected CListeSessionFormation listeSessionFormation;
 
-    public CEntitee() {
+    public CEntitees() {
     }
 
     

@@ -9,7 +9,6 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import projetAntoine.entites.CSessionFormation;
 
 /**
  *
@@ -19,9 +18,9 @@ public class CComboBoxRenderer extends JLabel implements ListCellRenderer {
 
     @Override
     public Component getListCellRendererComponent(JList jlist, Object e, int i, boolean bln, boolean bln1) {
-        JLabel l = new JLabel(" Pas de formation");
+        JLabel l = new JLabel("Pas de formation");
         if (e != null) {
-            l = new JLabel(((CSessionFormation) e).toString());
+            l = new JLabel(((Object) e).toString());
         }
         return l;
     }

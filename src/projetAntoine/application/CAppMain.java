@@ -5,7 +5,7 @@
  */
 package projetAntoine.application;
 
-import projetAntoine.entites.CEntitee;
+import projetAntoine.entites.CEntitees;
 import projetAntoine.ihm.JMainFrame;
 import projetAntoine.persistance.CPersistance;
 
@@ -15,7 +15,7 @@ import projetAntoine.persistance.CPersistance;
  */
 public class CAppMain {
     JMainFrame mainFrame;
-    CEntitee entitee;
+    CEntitees entitee;
     CPersistance persistance;
     
 
@@ -26,7 +26,7 @@ public class CAppMain {
     public static void main(String[] args) {
         
         CAppMain app = new CAppMain();
-        app.entitee= new CEntitee();
+        app.entitee= new CEntitees();
         app.persistance= new CPersistance();
         
         app.entitee.initEntitée(app.persistance);

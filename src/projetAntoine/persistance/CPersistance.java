@@ -5,7 +5,7 @@
  */
 package projetAntoine.persistance;
 
-import projetAntoine.entites.CEntitee;
+import projetAntoine.entites.CEntitees;
 
 /**
  *

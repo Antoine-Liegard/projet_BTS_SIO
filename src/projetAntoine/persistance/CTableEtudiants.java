@@ -56,7 +56,7 @@ public class CTableEtudiants {
             String commune = result.getString("commune");
             String codePostal = result.getString("codePostal");
             String numeroVoie = result.getString("numeroVoie");
-            String nomVoie = result.getString("nomVoie");
+            String nomVoie = result.getString("nomVoie");          
             String typeVoie = result.getString("typeVoie");
             String mail = result.getString("mail");
             String telephone1 = result.getString("telephone1");
@@ -68,7 +68,7 @@ public class CTableEtudiants {
             } else {
                 sessionFormation = listeSessionFormation.selectionnerSession(idSessionFormation);
             }
-            return new CEtudiant(idEtudiant, sessionFormation, nom, prenom, gc, numeroSS, commune, codePostal, numeroVoie, nomVoie, typeVoie, mail, telephone1, telephone2, infoComplementaires);
+            return new CEtudiant(idEtudiant, sessionFormation, nom, prenom, gc, numeroSS, commune, codePostal, numeroVoie, typeVoie, nomVoie, mail, telephone1, telephone2, infoComplementaires);
         } catch (SQLException ex) {
             Logger.getLogger(CTableEtudiants.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -156,7 +156,7 @@ public class CTableEtudiants {
                 } else {
                     pstmt.setString(13, etudiant.getTelephone2());
                 }
-                pstmt.setString(14, etudiant.getInfoComplementaire());
+                pstmt.setString(14, etudiant.getInfoComplementaires());
                 pstmt.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(CBDD.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,7 +187,7 @@ public class CTableEtudiants {
             try {
 
                 PreparedStatement pstmt = bdd.conn.prepareStatement(req);
-                if (etudiant.getSessionFormation().getIdSessionFormation() <= 0) {
+                if (etudiant.getSessionFormation() == null ) {
                     pstmt.setNull(1, java.sql.Types.INTEGER);
                 } else {
                     pstmt.setInt(1, etudiant.getSessionFormation().getIdSessionFormation());
@@ -214,7 +214,7 @@ public class CTableEtudiants {
                 } else {
                     pstmt.setString(13, etudiant.getTelephone2());
                 }
-                pstmt.setString(14, etudiant.getInfoComplementaire());
+                pstmt.setString(14, etudiant.getInfoComplementaires());
 
                 System.out.println(pstmt);
                 pstmt.execute();
@@ -250,7 +250,7 @@ public class CTableEtudiants {
         int res = -1;
         if (bdd.connecter() == true) {
 
-            String req = "DELETE FROM tableetudiants WHERE `tableetudiants`.`id` = " + etudiant.getIdEtudiant();
+            String req = "DELETE FROM tableetudiants WHERE `tableetudiants`.`idEtudiant` = " + etudiant.getIdEtudiant();
             res = bdd.executerRequeteUpdate(req);
             bdd.deconnecter();
         } else {
@@ -321,6 +321,7 @@ public class CTableEtudiants {
 //        
 //        tableEtudiants.mettreAJourEtudiant(listeEtudiants.selectionnerEtudiant(26));
         CListeEtudiants listeEtudiants = tableEtudiants.lireEtudiants();
+
         listeEtudiants.toString();
 ////        test suppression de tous les étudiants
 //        tableEtudiants.supprimerTousLesEtudiants();
